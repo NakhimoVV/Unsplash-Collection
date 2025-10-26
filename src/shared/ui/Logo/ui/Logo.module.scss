@@ -1,0 +1,10 @@
+.logo {
+  position: relative;
+
+  &::before {
+    @include abs-center;
+    content: '';
+    height: 44px;
+    width: 100%;
+  }
+}

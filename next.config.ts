@@ -1,9 +1,16 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
+
+const sassOptions = {
+  additionalData: `
+    @use "@/shared/styles/helpers/media" as *;
+    @use "@/shared/styles/helpers/mixins" as *;
+  `,
+}
 
 const nextConfig: NextConfig = {
   sassOptions: {
-    additionalData: "@use \"@/shared/styles/helpers\" as *;",
+    ...sassOptions,
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig
