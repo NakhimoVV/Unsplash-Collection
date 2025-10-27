@@ -8,7 +8,7 @@ const Logo = () => {
 
   return (
     <Link className={styles.logo} href="/" title={title} aria-label={title}>
-      <Image src={LogoIcon} alt="Logo" width={118} height={24} />
+      <Image src={LogoIcon} alt="Logo" width={118} height={24} preload />
     </Link>
   )
 }

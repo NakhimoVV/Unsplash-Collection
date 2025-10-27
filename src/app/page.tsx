@@ -1,7 +1,10 @@
+import styles from './ui/Home.module.scss'
+import Hero from '@/widgets/Hero'
+
 export default function Home() {
   return (
-    <main>
-      <p>Hello man! Iam MAIN</p>
+    <main className={styles.home}>
+      <Hero />
     </main>
   )
 }

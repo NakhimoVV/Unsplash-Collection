@@ -3,11 +3,16 @@
   align-items: center;
   gap: 8px;
 }
+
 .link {
   padding: 8px 20px;
+  font-weight: 500;
   color: var(--color-grey);
   border-radius: var(--border-radius-xs);
-  font-weight: 500;
+
+  @include hover {
+    color: var(--color-black);
+  }
 }
 
 .activeLink {

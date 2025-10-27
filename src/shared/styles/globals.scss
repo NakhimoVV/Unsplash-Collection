@@ -1,6 +1,11 @@
 body {
-  font-family: var(--font-vietnam), sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   font-size: 14px;
+  font-family: var(--font-vietnam), sans-serif;
+
+//  background-color: var(--color-black);
   color: var(--color-black);
 }
 

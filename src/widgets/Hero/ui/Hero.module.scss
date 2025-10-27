@@ -1,0 +1,45 @@
+.hero {
+  height: 100%;
+  padding-top: 66px;
+  padding-bottom: 72px;
+}
+
+.background {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 36px;
+  height: 100%;
+}
+
+.decoration {
+  &.left {
+    background: url('/hero-left.png') center / contain no-repeat;
+  }
+
+  &.right {
+    background: url('/hero-right.png') center / contain no-repeat;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 24px;
+  text-align: center;
+}
+
+.header {
+  display: grid;
+  row-gap: 8px;
+}
+
+.label {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 300;
+}
