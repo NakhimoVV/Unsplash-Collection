@@ -1,5 +1,17 @@
 .searchForm {
   height: 56px;
+  font-weight: 300;
 
   @include flex-center;
+}
+
+.input {
+  width: 100%;
+  padding: 16px ;
+  border: var(--border);
+  border-radius: var(--border-radius-s);
+
+  &::placeholder {
+    color: var(--color-grey);
+  }
 }

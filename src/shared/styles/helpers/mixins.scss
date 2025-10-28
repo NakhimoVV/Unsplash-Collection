@@ -61,11 +61,11 @@
   overflow: hidden !important;
 }
 
-@mixin focus-visible {
-  transition-duration: 0s !important;
-  outline: 2px dashed var(--color-accent);
-  outline-offset: 4px;
-}
+// @mixin focus-visible {
+//  transition-duration: 0s !important;
+//  outline: 2px dashed var(--color-black);
+//  outline-offset: 4px;
+// }
 
 @mixin disabled {
   opacity: 0.8;

@@ -1,30 +1,25 @@
 import styles from './SearchForm.module.scss'
 
-type SearchFormProps = {}
+type SearchFormProps = {
+  placeholder?: string
+}
 
 const SearchForm = (props: SearchFormProps) => {
-  const {} = props
+  const { placeholder } = props
+  const labelId = 'search'
 
   return (
-    <form className={styles.searchForm}>
-      Field
-      {/*<Field*/}
-      {/*  className="search-form__field"*/}
-      {/*  type="search"*/}
-      {/*  label="Search"*/}
-      {/*  isLabelHidden*/}
-      {/*  placeholder="Введите название товара"*/}
-      {/*  inputMode="search"*/}
-      {/*/>*/}
-      {/*<Button*/}
-      {/*  className="search-form__button"*/}
-      {/*  type="submit"*/}
-      {/*  label="Поиск товара"*/}
-      {/*  isLabelHidden*/}
-      {/*  iconName="search"*/}
-      {/*  mode={ButtonMode.RIGHT_ROUND}*/}
-      {/*/>*/}
-    </form>
+    <div className={styles.searchForm}>
+      <label className="visually-hidden" htmlFor={labelId}>
+        Search
+      </label>
+      <input
+        className={styles.input}
+        type="search"
+        id={labelId}
+        placeholder={placeholder}
+      />
+    </div>
   )
 }
 

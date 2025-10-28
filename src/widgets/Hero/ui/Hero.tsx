@@ -14,12 +14,14 @@ const Hero = (props: HeroProps) => {
         <div className={clsx(styles.decoration, styles.left)}></div>
         <div className={styles.body}>
           <header className={styles.header}>
-            <span className={styles.label}>Search</span>
+            <span className={styles.label} aria-hidden>
+              Search
+            </span>
             <h1 className={styles.title} id={titleId}>
               Search high-resolution images from Unsplash
             </h1>
           </header>
-          <SearchForm />
+          <SearchForm placeholder="Enter your keywords..." />
         </div>
         <div className={clsx(styles.decoration, styles.right)}></div>
       </div>
