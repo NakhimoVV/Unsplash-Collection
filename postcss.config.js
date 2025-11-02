@@ -1,19 +1,13 @@
 import postcssPxToRem from 'postcss-pxtorem'
 
-export default ({ env }) => {
-  const isProduction = env === 'production'
-  const plugins = []
+const isProduction = process.env.NODE_ENV === 'production'
 
-  if (isProduction) {
-    plugins.push(
+export default {
+  plugins: [
+    isProduction &&
       postcssPxToRem({
         propList: ['*'],
         mediaQuery: true,
       }),
-    )
-  }
-
-  return {
-    plugins,
-  }
+  ].filter(Boolean),
 }

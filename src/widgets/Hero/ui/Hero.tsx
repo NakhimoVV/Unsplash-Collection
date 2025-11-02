@@ -1,6 +1,6 @@
 import styles from './Hero.module.scss'
 import clsx from 'clsx'
-import SearchForm from '@/features/SearchForm'
+import Search from '@/features/Search'
 
 type HeroProps = {}
 
@@ -21,7 +21,7 @@ const Hero = (props: HeroProps) => {
               Search high-resolution images from Unsplash
             </h1>
           </header>
-          <SearchForm placeholder="Enter your keywords..." />
+          <Search placeholder="Enter your keywords..." />
         </div>
         <div className={clsx(styles.decoration, styles.right)}></div>
       </div>
