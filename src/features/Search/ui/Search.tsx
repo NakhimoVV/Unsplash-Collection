@@ -2,6 +2,7 @@
 
 import styles from './Search.module.scss'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import useDebouncedCallback from '@/shared/hooks/useDebouncedCallback'
 
 type SearchProps = {
   placeholder?: string
@@ -14,7 +15,7 @@ const Search = (props: SearchProps) => {
   const pathname = usePathname()
   const { replace } = useRouter()
 
-  function handleSearch(term: string) {
+  const handleSearch = useDebouncedCallback((term: string) => {
     console.log('TERM: ', term)
     const params = new URLSearchParams(searchParams)
 
@@ -24,7 +25,7 @@ const Search = (props: SearchProps) => {
       params.delete('query')
     }
     replace(`${pathname}?${params.toString()}`)
-  }
+  }, 1000)
 
   return (
     <div className={styles.searchForm}>
