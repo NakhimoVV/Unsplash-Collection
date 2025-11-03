@@ -2,7 +2,8 @@
 
 import styles from './Search.module.scss'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import useDebouncedCallback from '@/shared/hooks/useDebouncedCallback'
+import { FormEvent, useState } from 'react'
+import IconSearch from '@/shared/assets/icons/Search.svg'
 
 type SearchProps = {
   placeholder?: string
@@ -15,20 +16,23 @@ const Search = (props: SearchProps) => {
   const pathname = usePathname()
   const { replace } = useRouter()
 
-  const handleSearch = useDebouncedCallback((term: string) => {
-    console.log('TERM: ', term)
+  const [term, setTerm] = useState<string>(searchParams.get('query') || '')
+
+  const handleSearch = (event: FormEvent) => {
+    event.preventDefault()
+
     const params = new URLSearchParams(searchParams)
 
     if (term) {
-      params.set('query', term)
+      params.set('query', term.trim())
     } else {
       params.delete('query')
     }
     replace(`${pathname}?${params.toString()}`)
-  }, 1000)
+  }
 
   return (
-    <div className={styles.searchForm}>
+    <form className={styles.searchForm} onSubmit={handleSearch}>
       <label className="visually-hidden" htmlFor={labelId}>
         Search
       </label>
@@ -37,12 +41,13 @@ const Search = (props: SearchProps) => {
         type="search"
         id={labelId}
         placeholder={placeholder}
-        onChange={(event) => {
-          handleSearch(event.target.value)
-        }}
-        defaultValue={searchParams.get('query')?.toString()}
+        value={term}
+        onChange={(event) => setTerm(event.target.value)}
       />
-    </div>
+      <button className={styles.button} type="submit">
+        <IconSearch width={24} height={24} />
+      </button>
+    </form>
   )
 }
 

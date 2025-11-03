@@ -10,6 +10,10 @@ export default {
     'order/properties-order': [
       [
         {
+          groupName: 'default',
+          properties: ['appearance'],
+        },
+        {
           groupName: 'Позиционирование',
           properties: [
             'content',

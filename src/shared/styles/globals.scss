@@ -9,6 +9,20 @@ body {
   color: var(--color-black);
 }
 
+main {
+  flex-grow: 1;
+}
+
+input[type="search"]::-webkit-search-cancel-button { 
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: url('/close.svg') no-repeat center / contain;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 0;
+}
+
 a,
 button,
 label,

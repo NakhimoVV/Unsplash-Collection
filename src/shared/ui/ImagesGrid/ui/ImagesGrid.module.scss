@@ -1,2 +1,12 @@
 .imagesGrid {
+  --gridColumn: 4;
+
+  display: grid;
+  grid-template-columns: repeat(var(--gridColumn), auto);
+  grid-auto-flow: row dense;
+  gap: 24px;
+}
+
+.image {
+  border-radius: var(--border-radius-xs);
 }

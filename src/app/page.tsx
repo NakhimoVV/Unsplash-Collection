@@ -1,4 +1,3 @@
-import styles from './ui/Home.module.scss'
 import Hero from '@/widgets/Hero'
 import ImagesGrid from '@/shared/ui/ImagesGrid'
 
@@ -15,8 +14,6 @@ export default async function Home(props: HomeProps) {
   const page = Number(searchParams?.page) || 1
 
   return (
-    <main className={styles.home}>
-      {query ? <ImagesGrid query={query} currentPage={page} /> : <Hero />}
-    </main>
+    <>{query ? <ImagesGrid query={query} currentPage={page} /> : <Hero />}</>
   )
 }
