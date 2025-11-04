@@ -2,8 +2,8 @@
   --gridColumn: 4;
 
   display: grid;
-  grid-template-columns: repeat(var(--gridColumn), auto);
-  grid-auto-flow: row dense;
+  grid-template-columns: repeat(auto-fit, minmax(266px, auto));
+  justify-content: center;
   gap: 24px;
 }
 
