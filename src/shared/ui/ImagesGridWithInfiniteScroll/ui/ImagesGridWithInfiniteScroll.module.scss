@@ -1,0 +1,45 @@
+.imagesGrid {
+  --columns: 4;
+  --gap: 24px;
+
+  column-gap: var(--gap);
+  column-count: var(--columns);
+  column-fill: balance;
+
+  @include tablet {
+    --columns: 3;
+  }
+
+  @include mobile {
+    --columns: 2;
+  }
+
+  @include mobile-s {
+    --columns: 1;
+  }
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-xs);
+}
+
+.imageWrapper {
+  display: block;
+  break-inside: avoid; // Запрещает разрыв элемента между колонками
+  margin-bottom: var(--gap);
+}
+
+.loader {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-secondary, #666);
+  column-span: all; // элемент пересекает ВСЕ колонки
+}
+
+.triggerBlock {
+  height: 20px;
+  column-span: all;
+}

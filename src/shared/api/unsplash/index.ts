@@ -1,7 +1,7 @@
 export const unsplashApi = {
-  async getPhotosByQuery(query: string, currentPage: number) {
+  async getPhotosByQuery(query: string, page: number, perPage: number = 20) {
     const response = await fetch(
-      `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&page=${currentPage}&per_page=10`,
+      `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&page=${page}&per_page=${perPage}`,
       {
         headers: {
           'Accept-Version': 'v1',
@@ -12,7 +12,7 @@ export const unsplashApi = {
     )
 
     if (!response.ok) {
-      throw new Error('Failed to fetch photos')
+      throw new Error('Failed to fetch photos from unsplash api!')
     }
 
     return response.json()

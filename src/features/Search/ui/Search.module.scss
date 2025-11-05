@@ -1,7 +1,9 @@
 .searchForm {
   position: relative;
+    max-width: 528px;
   height: 56px;
   font-weight: 300;
+  
 
   @include flex-center;
 }
