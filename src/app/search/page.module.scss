@@ -1,15 +1,20 @@
+@use 'sass:math';
+
 .container {
-  max-width: 1400px;
+  max-width: 1136px;
   margin-inline: auto;
-  padding: 24px;
 }
 
 .searchContainer {
-  margin-bottom: 40px;
+  max-width: 528px;
+  margin-inline: auto;
+  margin-bottom: 48px;
+  margin-top: math.div(-56px, 2);
 }
 
 .gradientLine {
   display: block;
   height: 80px;
-  background: url('/gradiend-bg.svg');
+  background: linear-gradient(to right, #F2C593, #8A3282);
+  -webkit-text-fill-color: transparent;
 }

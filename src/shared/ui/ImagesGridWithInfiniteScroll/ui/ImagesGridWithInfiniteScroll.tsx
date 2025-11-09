@@ -66,7 +66,7 @@ const ImagesGridWithInfiniteScroll = ({
           <ImageWithBlur key={image.id} image={image} />
         ))}
       </div>
-      {isLoading && <div className={styles.loader}>Загрузка...</div>}
+      {isLoading && <div className={styles.loader}>Loading...</div>}
       <div ref={lastElementRef} className={styles.triggerBlock} />
     </>
   )

@@ -16,20 +16,22 @@ export default async function SearchPage(props: SearchPageProps) {
   const page = Number(searchParams?.page) || 1
 
   const initialData = await unsplashApi.getPhotosByQuery(query, page)
-  // TODO: Довести до ума
+
   return (
-    <div className={styles.container}>
+    <>
       <div className={styles.gradientLine}></div>
       <div className={styles.searchContainer}>
-        <Search placeholder="Search for images..." />
+        <Search placeholder="Enter your keywords..." />
       </div>
-      {query && (
-        <ImagesGridWithInfiniteScroll
-          query={query}
-          initialData={initialData}
-          initialPage={page}
-        />
-      )}
-    </div>
+      <div className={styles.container}>
+        {query && (
+          <ImagesGridWithInfiniteScroll
+            query={query}
+            initialData={initialData}
+            initialPage={page}
+          />
+        )}
+      </div>
+    </>
   )
 }
