@@ -2,7 +2,7 @@
 
 import styles from './Search.module.scss'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { FormEvent, useState, useEffect } from 'react'
+import { FormEvent, useState } from 'react'
 import IconSearch from '@/shared/assets/icons/Search.svg'
 
 type SearchProps = {
@@ -18,26 +18,17 @@ const Search = (props: SearchProps) => {
 
   const [term, setTerm] = useState<string>(searchParams.get('query') || '')
 
-  // Синхронизируем term с URL параметрами при изменении
-  useEffect(() => {
-    const queryFromUrl = searchParams.get('query') || ''
-    setTerm(queryFromUrl)
-  }, [searchParams])
-
   const handleSearch = (event: FormEvent) => {
     event.preventDefault()
 
-    if (term.trim()) {
-      // Редирект на страницу /search с query параметром
-      replace(`/search?query=${encodeURIComponent(term.trim())}`)
+    const params = new URLSearchParams(searchParams)
+
+    if (term) {
+      params.set('query', term.trim())
     } else {
-      // Если пустой поиск, убираем query параметр или редиректим на главную
-      if (pathname === '/search') {
-        replace('/search')
-      } else {
-        replace('/')
-      }
+      params.delete('query')
     }
+    replace(`${pathname}?${params.toString()}`)
   }
 
   return (

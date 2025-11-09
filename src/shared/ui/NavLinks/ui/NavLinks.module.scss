@@ -9,6 +9,7 @@
   font-weight: 500;
   color: var(--color-grey);
   border-radius: var(--border-radius-xs);
+  user-select: none;
 
   @include hover {
     color: var(--color-black);
@@ -18,4 +19,5 @@
 .activeLink {
   color: var(--color-black);
   background-color: var(--color-ligth);
+  pointer-events: none;
 }
