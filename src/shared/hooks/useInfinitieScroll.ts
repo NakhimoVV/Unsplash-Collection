@@ -1,39 +1,43 @@
 import { useEffect, useRef } from 'react'
 
-interface InfinitieScrollProp {
+type InfinitieScrollProp = {
   action: () => Promise<void>
-  dependency: boolean
+  canLoad: boolean
+  threshold?: number
 }
 
-const useInfinitieScroll = ({ action, dependency }: InfinitieScrollProp) => {
+const useInfinitieScroll = (props: InfinitieScrollProp) => {
+  const { action, canLoad, threshold = 0.1 } = props
+
   const observerRef = useRef<IntersectionObserver | null>(null)
   const lastElementRef = useRef<HTMLDivElement | null>(null)
 
-  // TODO: улучшить
-  useEffect(() => {
-    if (observerRef.current) {
-      observerRef.current.disconnect()
-    }
+  const cleanup = () => {
+    observerRef.current?.disconnect()
+  }
 
-    observerRef.current = new IntersectionObserver(
+  useEffect(() => {
+    cleanup()
+
+    const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && dependency) {
-          action()
+        const [entry] = entries
+        if (entry.isIntersecting && canLoad) {
+          void action()
         }
       },
-      { threshold: 0.1 },
+      { threshold },
     )
+    observerRef.current = observer
 
-    if (lastElementRef.current) {
-      observerRef.current.observe(lastElementRef.current)
+    const lastElement = lastElementRef.current
+
+    if (lastElement) {
+      observer.observe(lastElement)
     }
 
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-      }
-    }
-  }, [action, dependency])
+    return cleanup
+  }, [action, canLoad, threshold])
 
   return { lastElementRef }
 }

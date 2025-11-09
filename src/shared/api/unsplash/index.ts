@@ -1,20 +1,44 @@
+import { getErrorMessage } from '@/shared/lib/getErrorMessage'
+
+const BASE_URL = 'https://api.unsplash.com/'
+
 export const unsplashApi = {
-  async getPhotosByQuery(query: string, page: number, perPage: number = 20) {
-    const response = await fetch(
-      `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&page=${page}&per_page=${perPage}`,
-      {
+  async _fetch(endpoint: string) {
+    try {
+      const response = await fetch(`${BASE_URL}${endpoint}`, {
         headers: {
           'Accept-Version': 'v1',
           Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
         },
         cache: 'no-store',
-      },
-    )
+      })
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch photos from unsplash api!')
+      const isExpectedError =
+        !response.ok && response.status >= 400 && response.status < 500
+
+      if (isExpectedError) {
+        let errorMessage = `Request failed with status ${response.status}`
+        const errorData = await response.json()
+
+        if (errorData?.errors?.length > 0) {
+          errorMessage = errorData?.errors?.join('; ')
+        }
+        throw new Error(errorMessage)
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error(`Unsplash API error (${endpoint}):`, getErrorMessage(error))
     }
+  },
 
-    return response.json()
+  async getPhotosByQuery(query: string, page: number, perPage: number = 20) {
+    return this._fetch(
+      `search/photos?query=${encodeURIComponent(query)}&page=${page}&per_page=${perPage}`,
+    )
+  },
+
+  async getPhotoById(id: string) {
+    return this._fetch(`photos/${id}`)
   },
 }

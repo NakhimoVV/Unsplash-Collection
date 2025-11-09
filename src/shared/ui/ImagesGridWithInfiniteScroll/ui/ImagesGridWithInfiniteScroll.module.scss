@@ -2,6 +2,7 @@
   --columns: 4;
   --gap: 24px;
 
+  // TODO: Mansory - эфект не устраивает из-за подгрузки по вертикали
   column-gap: var(--gap);
   column-count: var(--columns);
   column-fill: balance;
@@ -24,6 +25,7 @@
   width: 100%;
   height: auto;
   border-radius: var(--border-radius-xs);
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 25%);
 }
 
 .imageWrapper {

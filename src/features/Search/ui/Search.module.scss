@@ -12,6 +12,7 @@
   background-color: var(--color-white);
   border: var(--border);
   border-radius: var(--border-radius-s);
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 10%);
 
   &::placeholder {
     color: var(--color-grey);

@@ -46,29 +46,3 @@ export async function blurHashToDataURL(
     return undefined
   }
 }
-// TODO: не используемый код ?
-/**
- * Синхронная версия (требует blurhash установленную)
- * Используется для предварительной генерации на сервере
- */
-export function blurHashToDataURLSync(
-  blurHash: string | null | undefined,
-  width: number = 32,
-  height: number = 32,
-): string | undefined {
-  if (!blurHash) {
-    return undefined
-  }
-
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { decode } = require('blurhash')
-    const pixels = decode(blurHash, width, height)
-
-    // Для сервера нужен node-canvas или другой подход
-    // Здесь пока возвращаем undefined, так как на сервере нужен canvas
-    return undefined
-  } catch (error) {
-    return undefined
-  }
-}

@@ -7,13 +7,14 @@ import useInfinitieScroll from '@/shared/hooks/useInfinitieScroll'
 import { useBlurDataURL } from '@/shared/hooks/useBlurDataURL'
 import Image from 'next/image'
 import styles from './ImagesGridWithInfiniteScroll.module.scss'
+import Link from 'next/link'
 
 type ImagesGridWithInfiniteScrollProps = {
   query: string
   initialData: UnsplashSearchResponse
   initialPage?: number
 }
-// TODO: декомпозировать
+
 const ImagesGridWithInfiniteScroll = ({
   query,
   initialData,
@@ -49,7 +50,7 @@ const ImagesGridWithInfiniteScroll = ({
 
   const { lastElementRef } = useInfinitieScroll({
     action: loadMore,
-    dependency: hasMore && !isLoading,
+    canLoad: hasMore && !isLoading,
   })
 
   // Reset state when "query" changes
@@ -82,7 +83,7 @@ const ImageWithBlur = ({ image }: { image: Result }) => {
   const calculatedHeight = Math.round(baseWidth / aspectRatio)
 
   return (
-    <div className={styles.imageWrapper}>
+    <Link className={styles.imageWrapper} href={`/photos/${image.id}`}>
       <Image
         className={styles.image}
         src={image.urls.small}
@@ -94,7 +95,7 @@ const ImageWithBlur = ({ image }: { image: Result }) => {
         blurDataURL={blurDataURL}
         sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
       />
-    </div>
+    </Link>
   )
 }
 
