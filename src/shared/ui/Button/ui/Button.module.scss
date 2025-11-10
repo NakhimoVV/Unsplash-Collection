@@ -1,0 +1,21 @@
+.button {
+  @include flex-center(true);
+
+  font-family: var(--font-outfit), sans-serif;
+  border: none;
+  border-radius: var(--border-radius-xs);
+  background-color: var(--color-ligth);
+  user-select: none;
+  padding: 12px 24px;
+  column-gap: 10px;
+  font-weight: 500;
+
+  @include hover {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+  }
+
+  &:active {
+    scale: 1.05;
+  }
+}

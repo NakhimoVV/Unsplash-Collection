@@ -2,6 +2,9 @@ import styles from './page.module.scss'
 import Image from 'next/image'
 import { unsplashApi } from '@/shared/api/unsplash'
 import { formatDate } from '@/shared/lib/formatDate'
+import Button from '@/shared/ui/Button'
+import IconPlus from '@/shared/assets/icons/Plus.svg'
+import IconDown from '@/shared/assets/icons/down arrow.svg'
 
 type PhotoPageProps = {
   params: Promise<{ id: string }>
@@ -15,10 +18,10 @@ export default async function Photo(props: PhotoPageProps) {
 
   return (
     <section className={styles.page}>
-      <div className={styles.container}>
+      <div className={styles.inner}>
         {data && (
           <>
-            <div className={styles.imageWrapper}>
+            <div className={styles.imageBox}>
               <Image
                 className={styles.image}
                 src={data.urls.regular}
@@ -27,26 +30,30 @@ export default async function Photo(props: PhotoPageProps) {
                 height={data.height}
               />
             </div>
-            <div className={styles.rightSide}>
-              <div>
-                <div className={styles.headerProfile}>
+            <div className={styles.aboutBox}>
+              <div className={styles.photoInfo}>
+                <header className={styles.dataCreator}>
                   <Image
-                    className={styles.imageProfile}
+                    className={styles.userpic}
                     src={data.user.profile_image.small}
                     alt=""
                     width={50}
                     height={50}
                   />
                   <span>{data.user.name}</span>
-                </div>
-                <p className={styles.subString}>
+                </header>
+                <p className={styles.createdDate}>
                   Published on{' '}
                   <time dateTime={data.created_at}>
                     {formatDate(data.created_at)}
                   </time>
                 </p>
+                <div className={styles.actions}>
+                  <Button label="Add to Collection" icon={IconPlus} />
+                  <Button label="Download" icon={IconDown} />
+                </div>
               </div>
-              <p>Collections</p>
+              <div className={styles.photoCollections}>Collections</div>
             </div>
           </>
         )}
