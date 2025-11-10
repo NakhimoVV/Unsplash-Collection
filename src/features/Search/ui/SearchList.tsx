@@ -1,7 +1,7 @@
 import styles from './SearchList.module.scss'
 import Search from '@/features/Search'
-import ImagesGridWithInfiniteScroll from '@/shared/ui/ImagesGridWithInfiniteScroll'
 import { unsplashApi } from '@/shared/api/unsplash'
+import GridMasonry from '@/features/Grid'
 
 type SearchListProps = {
   query: string
@@ -24,7 +24,7 @@ const SearchList = async (props: SearchListProps) => {
         <Search placeholder="Enter your keywords..." />
       </div>
       <div className={styles.container}>
-        <ImagesGridWithInfiniteScroll
+        <GridMasonry
           query={query}
           initialData={initialData}
           initialPage={page}

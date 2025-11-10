@@ -20,20 +20,6 @@
   }
 }
 
-.image {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: var(--border-radius-xs);
-  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 25%);
-}
-
-.imageWrapper {
-  display: block;
-  break-inside: avoid; // Запрещает разрыв элемента между колонками
-  margin-bottom: var(--gap);
-}
-
 .loader {
   padding: 20px;
   text-align: center;

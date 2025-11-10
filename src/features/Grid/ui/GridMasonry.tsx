@@ -1,25 +1,21 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import styles from './GridMasonry.module.scss'
 import { Result, UnsplashSearchResponse } from '@/shared/api/unsplash/model'
+import { useCallback, useEffect, useState } from 'react'
 import { loadPhotos } from '@/features/Search/lib/actions'
 import useInfinitieScroll from '@/shared/hooks/useInfinitieScroll'
-import { useBlurDataURL } from '@/shared/hooks/useBlurDataURL'
-import Image from 'next/image'
-import styles from './ImagesGridWithInfiniteScroll.module.scss'
-import Link from 'next/link'
+import GridElement from './GridElement'
 
-type ImagesGridWithInfiniteScrollProps = {
+type GridMasonryProps = {
   query: string
   initialData: UnsplashSearchResponse
   initialPage?: number
 }
 
-const ImagesGridWithInfiniteScroll = ({
-  query,
-  initialData,
-  initialPage = 1,
-}: ImagesGridWithInfiniteScrollProps) => {
+const GridMasonry = (props: GridMasonryProps) => {
+  const { query, initialData, initialPage = 1 } = props
+
   const [images, setImages] = useState<Result[]>(initialData.results)
   const [currentPage, setCurrentPage] = useState(initialPage)
   const [totalPages, setTotalPages] = useState(initialData.total_pages)
@@ -64,7 +60,7 @@ const ImagesGridWithInfiniteScroll = ({
     <>
       <div className={styles.imagesGrid}>
         {images.map((image) => (
-          <ImageWithBlur key={image.id} image={image} />
+          <GridElement image={image} key={image.id} />
         ))}
       </div>
       {isLoading && <div className={styles.loader}>Loading...</div>}
@@ -73,30 +69,4 @@ const ImagesGridWithInfiniteScroll = ({
   )
 }
 
-// Component Image with blur placeholder
-const ImageWithBlur = ({ image }: { image: Result }) => {
-  const blurDataURL = useBlurDataURL(image.blur_hash)
-
-  // Calc the correct dimensions to maintain proportions
-  const aspectRatio = image.width / image.height
-  const baseWidth = 400
-  const calculatedHeight = Math.round(baseWidth / aspectRatio)
-
-  return (
-    <Link className={styles.imageWrapper} href={`/photos/${image.id}`}>
-      <Image
-        className={styles.image}
-        src={image.urls.small}
-        alt={image.description || `Photo by ${image.user.name}`}
-        width={baseWidth}
-        height={calculatedHeight}
-        loading="lazy"
-        placeholder={blurDataURL ? 'blur' : 'empty'}
-        blurDataURL={blurDataURL}
-        sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-      />
-    </Link>
-  )
-}
-
-export default ImagesGridWithInfiniteScroll
+export default GridMasonry

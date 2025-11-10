@@ -37,7 +37,7 @@ a {
   color: inherit;
 
   @include hover {
-    color: var(--color-bad-accent);
+    color: var(--color-accent);
   }
 
   &[class] {
