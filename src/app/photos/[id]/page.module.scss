@@ -1,4 +1,35 @@
 .page {
+
+}
+
+.container {
+  padding-block: 52px;
+  padding-inline: 72px;
   display: flex;
   gap: 30px;
+}
+.imageWrapper {
+  flex: 0 1 50%;
+}
+.image {
+  border-radius: var(--border-radius-xs);
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 25%);
+}
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  flex: 0 1 50%;
+}
+.headerProfile {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  font-weight: 500;
+}
+.imageProfile {
+  border-radius: 50%;
+}
+.subString {
+  font-weight: 300;
 }

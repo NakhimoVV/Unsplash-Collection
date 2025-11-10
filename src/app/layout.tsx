@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { fontOutfit, fontVietnam } from '@/shared/styles/fonts'
 import '@/shared/styles'
 import Header from '@/widgets/Header'
-import styles from '@/app/ui/Home.module.scss'
 
 export const metadata: Metadata = {
   title: 'Unsplash Collection',
