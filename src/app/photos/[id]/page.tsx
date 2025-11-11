@@ -35,7 +35,7 @@ export default async function Photo(props: PhotoPageProps) {
                 <header className={styles.dataCreator}>
                   <Image
                     className={styles.userpic}
-                    src={data.user.profile_image.small}
+                    src={data.user.profile_image.medium}
                     alt=""
                     width={50}
                     height={50}
