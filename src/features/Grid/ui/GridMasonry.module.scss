@@ -3,9 +3,11 @@
   --gap: 24px;
 
   // TODO: Mansory - эфект не устраивает из-за подгрузки по вертикали
+//  column-gap: var(--gap);
+//  column-count: var(--columns);
+//  column-fill: balance;
+  display: flex;
   column-gap: var(--gap);
-  column-count: var(--columns);
-  column-fill: balance;
 
   @include tablet {
     --columns: 3;
@@ -24,10 +26,16 @@
   padding: 20px;
   text-align: center;
   color: var(--text-secondary, #666);
-  column-span: all; // элемент пересекает ВСЕ колонки
+//  column-span: all; // элемент пересекает ВСЕ колонки
 }
 
 .triggerBlock {
   height: 20px;
-  column-span: all;
+//  column-span: all;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--gap);
 }

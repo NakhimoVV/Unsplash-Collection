@@ -2,7 +2,7 @@
 
 import styles from './GridMasonry.module.scss'
 import { Result, UnsplashSearchResponse } from '@/shared/api/unsplash/model'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { loadPhotos } from '@/features/Search/lib/actions'
 import useInfinitieScroll from '@/shared/hooks/useInfinitieScroll'
 import GridElement from './GridElement'
@@ -56,11 +56,56 @@ const GridMasonry = (props: GridMasonryProps) => {
     setTotalPages(initialData.total_pages)
   }, [query, initialData, initialPage])
 
+  const columns = 4
+  const tetris = (array: Result[], countColumn: number) => {
+    // Создаём массив колонок
+    const arrayColumns: Result[][] = Array.from(
+      { length: countColumn },
+      () => [],
+    )
+    // Создаём массив их высот
+    const columnHeights: number[] = new Array(countColumn).fill(0)
+
+    // Итерируемся по array
+    array.forEach((item) => {
+      // Вычисляем высоту изображения на основе пропорций
+      const aspectRatio = item.width / item.height
+      const imageHeight = 400 / aspectRatio
+      // Ищем колонку с наименьшей высотой
+      let minHeight = columnHeights[0]
+      let targetColumn = 0
+
+      for (let i = 1; i < countColumn; i++) {
+        if (columnHeights[i] < minHeight) {
+          minHeight = columnHeights[i]
+          targetColumn = i
+        }
+      }
+
+      // Добавляем элемент в колонку с наименьшей высотой
+      arrayColumns[targetColumn].push(item)
+      // Актуализируем высоту
+      columnHeights[targetColumn] += imageHeight
+    })
+
+    // Возвращаем
+    return arrayColumns
+  }
+
+  const columnsData = useMemo(
+    () => tetris(images, columns),
+    [images, columns, tetris],
+  )
+
   return (
     <>
       <div className={styles.imagesGrid}>
-        {images.map((image) => (
-          <GridElement image={image} key={image.id} />
+        {columnsData.map((column, columnIndex) => (
+          <div key={columnIndex} className={styles.column}>
+            {column.map((image) => (
+              <GridElement image={image} key={image.id} />
+            ))}
+          </div>
         ))}
       </div>
       {isLoading && <div className={styles.loader}>Loading...</div>}
