@@ -1,10 +1,7 @@
 .imageWrapper {
   display: block;
-  break-inside: avoid; // Запрещает разрыв элемента между колонками
-//  margin-bottom: var(--gap);
 }
 .image {
-  display: block;
   width: 100%;
   height: auto;
   border-radius: var(--border-radius-xs);

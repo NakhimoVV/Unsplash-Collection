@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { loadPhotos } from '@/features/Search/lib/actions'
 import useInfinitieScroll from '@/shared/hooks/useInfinitieScroll'
 import GridElement from './GridElement'
+import { useResponsiveColumns } from '@/shared/hooks/useResponsiveColumns'
 
 type GridMasonryProps = {
   query: string
@@ -56,7 +57,8 @@ const GridMasonry = (props: GridMasonryProps) => {
     setTotalPages(initialData.total_pages)
   }, [query, initialData, initialPage])
 
-  const columns = 4
+  const columns = useResponsiveColumns()
+
   const tetris = (array: Result[], countColumn: number) => {
     // Создаём массив колонок
     const arrayColumns: Result[][] = Array.from(
