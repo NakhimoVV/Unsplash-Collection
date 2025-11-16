@@ -15,7 +15,6 @@ export type Result = {
   readonly liked_by_user?: boolean
   readonly description?: string | null
   readonly user: User
-  readonly current_user_collections?: any[]
   readonly urls: Urls
   readonly links: ResultLinks
 }
