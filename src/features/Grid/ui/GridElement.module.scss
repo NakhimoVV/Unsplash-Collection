@@ -1,5 +1,10 @@
-.imageWrapper {
+.imageLink {
   display: block;
+  transition-duration: 0.3s;
+
+  @include hover {
+    scale: 1.05;
+  }
 }
 .image {
   width: 100%;
