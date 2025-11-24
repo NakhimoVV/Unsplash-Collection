@@ -1,70 +1,32 @@
 'use client'
 
 import styles from './GridMasonry.module.scss'
-import { Result, UnsplashSearchResponse } from '@/shared/api/unsplash/model'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { loadPhotos } from '@/features/Search/lib/actions'
-import useInfinitieScroll from '@/shared/hooks/useInfinitieScroll'
 import GridElement from './GridElement'
+import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll'
+import { Result } from '@/shared/api/unsplash/model'
+import { useMemo } from 'react'
 import { useResponsiveColumns } from '@/shared/hooks/useResponsiveColumns'
 
-type GridMasonryProps = {
-  query: string
-  initialData: UnsplashSearchResponse
-  initialPage?: number
+type GridMasonryProps<T extends Result> = {
+  items: T[]
+  onLoadMore: () => Promise<void>
+  isLoading: boolean
+  hasMore: boolean
 }
 
-const GridMasonry = (props: GridMasonryProps) => {
-  const { query, initialData, initialPage = 1 } = props
+const GridMasonry = <T extends Result>(props: GridMasonryProps<T>) => {
+  const { items, onLoadMore, isLoading, hasMore } = props
 
-  const [images, setImages] = useState<Result[]>(initialData.results)
-  const [currentPage, setCurrentPage] = useState(initialPage)
-  const [totalPages, setTotalPages] = useState(initialData.total_pages)
-  const [isLoading, setIsLoading] = useState(false)
-
-  const hasMore = currentPage < totalPages
-
-  const loadMore = useCallback(async () => {
-    if (isLoading || !hasMore) {
-      return
-    }
-
-    setIsLoading(true)
-    try {
-      const nextPage = currentPage + 1
-      // Call Server Action
-      const data = await loadPhotos(query, nextPage)
-
-      setImages((prev) => [...prev, ...data.results])
-      setCurrentPage(nextPage)
-      setTotalPages(data.total_pages)
-    } catch (error) {
-      console.error('Error loading more photos:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [query, currentPage, isLoading, hasMore])
-
-  const { lastElementRef } = useInfinitieScroll({
-    action: loadMore,
+  const { lastElementRef } = useInfiniteScroll({
+    action: onLoadMore,
     canLoad: hasMore && !isLoading,
   })
 
-  // Reset state when "query" changes
-  useEffect(() => {
-    setImages(initialData.results)
-    setCurrentPage(initialPage)
-    setTotalPages(initialData.total_pages)
-  }, [query, initialData, initialPage])
-
   const columns = useResponsiveColumns()
 
-  const tetris = (array: Result[], countColumn: number) => {
+  const tetris = (array: T[], countColumn: number) => {
     // Создаём массив колонок
-    const arrayColumns: Result[][] = Array.from(
-      { length: countColumn },
-      () => [],
-    )
+    const arrayColumns: T[][] = Array.from({ length: countColumn }, () => [])
     // Создаём массив их высот
     const columnHeights: number[] = new Array(countColumn).fill(0)
 
@@ -94,10 +56,7 @@ const GridMasonry = (props: GridMasonryProps) => {
     return arrayColumns
   }
 
-  const columnsData = useMemo(
-    () => tetris(images, columns),
-    [images, columns, tetris],
-  )
+  const columnsData = useMemo(() => tetris(items, columns), [items, columns])
 
   return (
     <>

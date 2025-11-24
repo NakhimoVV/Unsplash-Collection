@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react'
 
-type InfinitieScrollProp = {
+type InfiniteScrollProp = {
   action: () => Promise<void>
   canLoad: boolean
   threshold?: number
 }
 
-const useInfinitieScroll = (props: InfinitieScrollProp) => {
+export const useInfiniteScroll = (props: InfiniteScrollProp) => {
   const { action, canLoad, threshold = 0.1 } = props
 
   const observerRef = useRef<IntersectionObserver | null>(null)
@@ -41,5 +41,3 @@ const useInfinitieScroll = (props: InfinitieScrollProp) => {
 
   return { lastElementRef }
 }
-
-export default useInfinitieScroll

@@ -1,18 +1,37 @@
+'use client'
+
 import styles from './SearchList.module.scss'
 import Search from '@/features/Search'
-import { unsplashApi } from '@/shared/api/unsplash'
 import GridMasonry from '@/features/Grid'
+import { useInfinitePagination } from '@/shared/hooks/useInfinitePagination'
+import { useEffect } from 'react'
+import { loadPhotos } from '@/features/Search/lib/actions'
+import { Result } from '@/shared/api/unsplash/model'
 
 type SearchListProps = {
   query: string
   page: number
+  initialData: Result[]
 }
 
-const SearchList = async (props: SearchListProps) => {
-  const { query, page } = props
+const SearchList = (props: SearchListProps) => {
+  const { query, page, initialData } = props
   const titleId = 'search-title'
+  // TODO: чекнуть возможные проблемы с blurhash!
+  // TODO: при нажатии назад всё заново загружается(
+  const { items, hasMore, loadMore, isLoading, setItems, reset } =
+    useInfinitePagination(async (page) => {
+      const data = await loadPhotos(query, page)
+      return {
+        items: data.results,
+        totalPages: data.total_pages,
+      }
+    })
 
-  const initialData = await unsplashApi.getPhotosByQuery(query, page)
+  useEffect(() => {
+    setItems(initialData)
+    reset()
+  }, [query, page])
 
   return (
     <section aria-labelledby={titleId}>
@@ -25,9 +44,10 @@ const SearchList = async (props: SearchListProps) => {
       </div>
       <div className={styles.container}>
         <GridMasonry
-          query={query}
-          initialData={initialData}
-          initialPage={page}
+          items={items}
+          onLoadMore={loadMore}
+          isLoading={isLoading}
+          hasMore={hasMore}
         />
       </div>
     </section>
