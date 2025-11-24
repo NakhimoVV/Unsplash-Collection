@@ -3,9 +3,10 @@
   --gap: 24px;
 
   display: flex;
-  width: 100%;
-  column-gap: var(--gap);
   justify-content: center;
+  column-gap: var(--gap);
+  width: 100%;
+  
 
   @include tablet {
     --columns: 3;
@@ -33,6 +34,6 @@
 .column {
   display: flex;
   flex-direction: column;
-  row-gap: var(--gap);
   flex: 1 1 auto;
+  row-gap: var(--gap);
 }
