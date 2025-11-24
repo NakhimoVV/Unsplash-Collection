@@ -1,12 +1,15 @@
-.imageWrapper {
+.imageLink {
   display: block;
-  break-inside: avoid; // Запрещает разрыв элемента между колонками
-  margin-bottom: var(--gap);
+  transition-duration: 0.3s;
+
+  @include hover {
+    scale: 1.05;
+  }
 }
+
 .image {
-  display: block;
   width: 100%;
   height: auto;
   border-radius: var(--border-radius-xs);
   box-shadow: 0 4px 12px 0 rgb(0 0 0 / 25%);
-}
+} 

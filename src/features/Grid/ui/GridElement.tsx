@@ -13,7 +13,7 @@ const GridElement = ({ image }: { image: Result }) => {
   const calculatedHeight = Math.round(baseWidth / aspectRatio)
 
   return (
-    <Link className={styles.imageWrapper} href={`/photos/${image.id}`}>
+    <Link className={styles.imageLink} href={`/photos/${image.id}`}>
       <Image
         className={styles.image}
         src={image.urls.small}
