@@ -1,3 +1,10 @@
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-top: 36px;
+}
+
 .visually-hidden {
   @include visually-hidden;
 }

@@ -42,7 +42,7 @@ const SearchList = (props: SearchListProps) => {
       <div className={styles.searchContainer}>
         <Search placeholder="Enter your keywords..." />
       </div>
-      <div className={styles.container}>
+      <div className="container">
         <GridMasonry
           items={items}
           onLoadMore={loadMore}

@@ -63,6 +63,7 @@
 
  @mixin focus-visible {
    transition-duration: 0s !important;
+   outline-color: var(--color-black);
  }
 
 @mixin disabled {

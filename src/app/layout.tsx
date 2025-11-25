@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { fontOutfit, fontVietnam } from '@/shared/styles/fonts'
 import '@/shared/styles'
+import { ReactNode } from 'react'
 import Header from '@/widgets/Header'
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
