@@ -10,6 +10,5 @@
 .gradientLine {
   display: block;
   height: 80px;
-  background: linear-gradient(to right, #F2C593, #8A3282);
-  -webkit-text-fill-color: transparent;
+  background: var(--gradient);
 }

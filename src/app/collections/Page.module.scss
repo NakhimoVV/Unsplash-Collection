@@ -1,0 +1,13 @@
+.title {
+  align-self: center;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -2px;
+
+  @include gradient-text;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+}

@@ -70,3 +70,9 @@
   opacity: 0.8;
   cursor: not-allowed;
 }
+
+@mixin gradient-text {
+  background: var(--gradient);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
