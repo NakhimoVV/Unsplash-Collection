@@ -6,12 +6,13 @@ import GridMasonry from '@/features/Grid'
 import { useInfinitePagination } from '@/shared/hooks/useInfinitePagination'
 import { useEffect } from 'react'
 import { loadPhotos } from '@/features/Search/lib/actions'
-import { Result } from '@/shared/api/unsplash/model'
+import { mapUnsplashResultToImageType } from '@/entities/image/lib/mapUnsplashResultToImageType'
+import { Image } from '@/entities/image/model/type'
 
 type SearchListProps = {
   query: string
   page: number
-  initialData: Result[]
+  initialData: Image[]
 }
 
 const SearchList = (props: SearchListProps) => {
@@ -23,7 +24,7 @@ const SearchList = (props: SearchListProps) => {
     useInfinitePagination(async (page) => {
       const data = await loadPhotos(query, page)
       return {
-        items: data.results,
+        items: data.results.map(mapUnsplashResultToImageType),
         totalPages: data.total_pages,
       }
     })

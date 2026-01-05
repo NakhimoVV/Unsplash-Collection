@@ -4,6 +4,7 @@ body {
   height: 100%;
   font-size: 14px;
   font-family: var(--font-vietnam), sans-serif;
+  font-weight: 300;
 
 //  background-color: var(--color-black);
   color: var(--color-black);
@@ -34,6 +35,7 @@ svg * {
 }
 
 a {
+  font-weight: 500;
   color: inherit;
 
   @include hover {

@@ -3,18 +3,18 @@
 import styles from './GridMasonry.module.scss'
 import GridElement from './GridElement'
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll'
-import { Result } from '@/shared/api/unsplash/model'
 import { useMemo } from 'react'
 import { useResponsiveColumns } from '@/shared/hooks/useResponsiveColumns'
+import { Image } from '@/entities/image/model/type'
 
-type GridMasonryProps<T extends Result> = {
+type GridMasonryProps<T extends Image> = {
   items: T[]
   onLoadMore: () => Promise<void>
   isLoading: boolean
   hasMore: boolean
 }
 
-const GridMasonry = <T extends Result>(props: GridMasonryProps<T>) => {
+const GridMasonry = <T extends Image>(props: GridMasonryProps<T>) => {
   const { items, onLoadMore, isLoading, hasMore } = props
 
   const { lastElementRef } = useInfiniteScroll({

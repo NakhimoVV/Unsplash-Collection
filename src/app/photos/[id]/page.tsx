@@ -5,6 +5,7 @@ import { formatDate } from '@/shared/lib/formatDate'
 import Button from '@/shared/ui/Button'
 import IconPlus from '@/shared/assets/icons/Plus.svg'
 import IconDown from '@/shared/assets/icons/down arrow.svg'
+import { notFound } from 'next/navigation'
 
 type PhotoPageProps = {
   params: Promise<{ id: string }>
@@ -15,6 +16,10 @@ export default async function Photo(props: PhotoPageProps) {
   const id = params.id
 
   const data = await unsplashApi.getPhotoById(id)
+
+  if (!data) {
+    notFound()
+  }
 
   return (
     <section className={styles.page}>

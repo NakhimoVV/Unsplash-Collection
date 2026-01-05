@@ -12,10 +12,18 @@ const CollectionItem = (props: CollectionItemProps) => {
   return (
     <li className={styles.collerctionItem}>
       <Link className={styles.link} href={`/collections/${item.id}`}>
-        <header className={styles.header}></header>
+        <header className={styles.header}>
+          <img
+            src={item.preview_images[0]}
+            alt=""
+            width="200"
+            height="200"
+            loading="lazy"
+          />
+        </header>
         <footer className={styles.footer}>
           <h4>{item.name}</h4>
-          <p>23 photos</p>
+          <p>{item.count_images} photos</p>
         </footer>
       </Link>
     </li>

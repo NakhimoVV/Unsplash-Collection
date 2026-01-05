@@ -8,6 +8,14 @@ export default async function Page() {
   return (
     <div className={styles.wrap}>
       <h3 className={styles.title}>Collections</h3>
+      <p>
+        Explore the world through collections of beautiful photos free to use
+        under the&nbsp;
+        <a href="https://unsplash.com/license" target="_blank">
+          Unsplash License
+        </a>
+        .
+      </p>
       <CollectionList items={collections} />
     </div>
   )

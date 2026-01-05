@@ -9,12 +9,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     <div>
       <h3>Collection - {id}</h3>
       {photos.map((photo) => {
-        const urls = JSON.parse(photo.urls)
-
         return (
           <div key={photo.id}>
             <img
-              src={urls.small}
+              src={photo.urls.small}
               alt=""
               width="200"
               height="300"

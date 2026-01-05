@@ -2,6 +2,7 @@ import Hero from '@/widgets/Hero'
 import SearchList from '@/features/Search/ui/SearchList'
 import { unsplashApi } from '@/shared/api/unsplash'
 import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
+import { mapUnsplashResultToImageType } from '@/entities/image/lib/mapUnsplashResultToImageType'
 
 type HomeProps = {
   searchParams?: Promise<{
@@ -16,12 +17,13 @@ export default async function Home(props: HomeProps) {
   const page = Number(searchParams?.page) || 1
 
   if (query) {
-    const initialData: UnsplashSearchResponse =
+    const initialResponse: UnsplashSearchResponse =
       await unsplashApi.getPhotosByQuery(query, page)
-
-    return (
-      <SearchList query={query} page={page} initialData={initialData.results} />
+    const initialData = initialResponse.results.map(
+      mapUnsplashResultToImageType,
     )
+
+    return <SearchList query={query} page={page} initialData={initialData} />
   }
 
   return <Hero />

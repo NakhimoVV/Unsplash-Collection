@@ -1,21 +1,23 @@
-export type Collection = {
-  readonly id: string
-  readonly name: string
-  readonly created_at: string
-  readonly updated_at: string
-  readonly is_system: boolean
-}
+export type Collection = Readonly<{
+  id: string
+  name: string
+  created_at: string
+  updated_at: string
+  count_images: number
+  preview_images: string[]
+  is_system: boolean
+}>
 
-export interface CollectionImage {
-  readonly id: string
-  readonly collection_id: string
-  readonly created_at: string
-  readonly width: number
-  readonly height: number
-  readonly blur_hash: string | null
-  readonly description: string | null
-  readonly user: string
-  readonly urls: string
-  readonly links: string
-  readonly added_at: string
-}
+export type CollectionImage = Readonly<{
+  id: string
+  collection_id: string
+  created_at: string
+  width: number
+  height: number
+  blur_hash: string | null
+  description: string | null
+  user: string
+  urls: string
+  links: string
+  added_at: string
+}>

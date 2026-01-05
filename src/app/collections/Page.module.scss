@@ -10,4 +10,12 @@
 .wrap {
   display: flex;
   flex-direction: column;
+  text-align: center;
+
+  & p {
+    align-self: center;
+    max-width: 380px;
+    font-size: 16px;
+    color: black;
+  }
 }
