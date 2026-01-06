@@ -88,9 +88,9 @@ async function seedCollectionsImages() {
                 ${image.height},
                 ${image.blur_hash ?? null},
                 ${image.description ?? null},
-                ${JSON.stringify(image.user)},
-                ${JSON.stringify(image.urls)},
-                ${JSON.stringify(image.links)}
+                ${sql.json(image.user)},
+                ${sql.json(image.urls)},
+                ${sql.json(image.links)}
               )
               ON CONFLICT (collection_id, id) DO NOTHING
             `

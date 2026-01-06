@@ -16,8 +16,26 @@ export type CollectionImage = Readonly<{
   height: number
   blur_hash: string | null
   description: string | null
-  user: string
-  urls: string
-  links: string
+  user: {
+    id: string
+    name: string
+    profile_image: {
+      small: string
+      medium: string
+      large: string
+    }
+  }
+  urls: {
+    raw: string
+    full: string
+    regular: string
+    small: string
+    thumb: string
+  }
+  links: {
+    self: string
+    html: string
+    download: string
+  }
   added_at: string
 }>

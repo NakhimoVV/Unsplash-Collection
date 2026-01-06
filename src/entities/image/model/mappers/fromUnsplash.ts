@@ -1,7 +1,7 @@
 import { Image } from '@/entities/image/model/type'
 import { Result } from '@/shared/api/unsplash/model'
 
-export function mapUnsplashResultToImageType(data: Result): Image {
+export function fromUnsplash(data: Result): Image {
   return {
     id: data.id,
     created_at: data.created_at,
