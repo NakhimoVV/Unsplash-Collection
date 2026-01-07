@@ -1,6 +1,7 @@
 import styles from './CollectionItem.module.scss'
 import type { Collection } from '@/entities/collection/model/types'
 import Link from 'next/link'
+import Image from 'next/image'
 
 type CollectionItemProps = {
   item: Collection
@@ -10,20 +11,27 @@ const CollectionItem = (props: CollectionItemProps) => {
   const { item } = props
 
   return (
-    <li className={styles.collerctionItem}>
+    <li className={styles.collection}>
       <Link className={styles.link} href={`/collections/${item.id}`}>
-        <header className={styles.header}>
-          <img
-            src={item.preview_images[0]}
-            alt=""
-            width="200"
-            height="200"
-            loading="lazy"
-          />
+        <header
+          className={styles.header}
+          data-preview-count={item.preview_images.length}
+        >
+          {item.preview_images.map((imgSrc) => (
+            <div className={styles.imageWrapper} key={imgSrc}>
+              <Image
+                className={styles.image}
+                src={imgSrc}
+                fill
+                sizes="100vw"
+                alt=""
+              />
+            </div>
+          ))}
         </header>
         <footer className={styles.footer}>
-          <h4>{item.name}</h4>
-          <p>{item.count_images} photos</p>
+          <h4 className={styles.title}>{item.name}</h4>
+          <p className={styles.subtitle}>{item.count_images} photos</p>
         </footer>
       </Link>
     </li>

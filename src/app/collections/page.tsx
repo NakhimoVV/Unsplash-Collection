@@ -1,21 +1,27 @@
 import { fetchCollections } from '@/app/lib/database'
 import CollectionList from '@/entities/collection/ui/CollectionList'
-import styles from './Page.module.scss'
+import PageHeader from '@/shared/ui/PageHeader'
+import styles from './page.module.scss'
+
+const title = 'Collections'
 
 export default async function Page() {
   const collections = await fetchCollections()
+  // TODO: стили для PageHeader
+  const subtitle = (
+    <>
+      Explore the world through collections of beautiful photos free to use
+      under the{' '}
+      <a href="https://unsplash.com/license" target="_blank" rel="noreferrer">
+        Unsplash License
+      </a>
+      .
+    </>
+  )
 
   return (
     <div className={styles.wrap}>
-      <h3 className={styles.title}>Collections</h3>
-      <p>
-        Explore the world through collections of beautiful photos free to use
-        under the&nbsp;
-        <a href="https://unsplash.com/license" target="_blank">
-          Unsplash License
-        </a>
-        .
-      </p>
+      <PageHeader title={title} subtitle={subtitle} />
       <CollectionList items={collections} />
     </div>
   )

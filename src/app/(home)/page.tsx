@@ -11,6 +11,8 @@ type HomeProps = {
   }>
 }
 
+// TODO: Ужалить все лишние папки "UI" в проекте и настроить порядок импортов
+
 export default async function Home(props: HomeProps) {
   const searchParams = await props.searchParams
   const query = searchParams?.query || ''

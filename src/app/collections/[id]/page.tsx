@@ -1,4 +1,5 @@
 import { fetchPhotosFromCollectionById } from '@/app/lib/database'
+import PageHeader from '@/shared/ui/PageHeader'
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params
@@ -7,7 +8,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
   return (
     <div>
-      <h3>Collection - {id}</h3>
+      {/*<PageHeader title={} subtitle={} />*/}
       {photos.map((photo) => {
         return (
           <div key={photo.id}>

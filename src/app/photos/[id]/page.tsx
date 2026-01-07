@@ -1,4 +1,3 @@
-import styles from './page.module.scss'
 import Image from 'next/image'
 import { unsplashApi } from '@/shared/api/unsplash'
 import { formatDate } from '@/shared/lib/formatDate'
@@ -6,6 +5,7 @@ import Button from '@/shared/ui/Button'
 import IconPlus from '@/shared/assets/icons/Plus.svg'
 import IconDown from '@/shared/assets/icons/down arrow.svg'
 import { notFound } from 'next/navigation'
+import styles from './page.module.scss'
 
 type PhotoPageProps = {
   params: Promise<{ id: string }>
