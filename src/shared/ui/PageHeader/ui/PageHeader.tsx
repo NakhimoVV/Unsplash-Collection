@@ -12,7 +12,7 @@ const PageHeader = (props: PageHeaderProps) => {
   return (
     <header className={styles.pageHeader}>
       <h1 className={styles.title}>{title}</h1>
-      <p>{subtitle}</p>
+      <p className={styles.subtitle}>{subtitle}</p>
     </header>
   )
 }

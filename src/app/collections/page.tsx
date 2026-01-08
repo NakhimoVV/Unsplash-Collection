@@ -7,7 +7,7 @@ const title = 'Collections'
 
 export default async function Page() {
   const collections = await fetchCollections()
-  // TODO: стили для PageHeader
+
   const subtitle = (
     <>
       Explore the world through collections of beautiful photos free to use
@@ -20,7 +20,7 @@ export default async function Page() {
   )
 
   return (
-    <div className={styles.wrap}>
+    <div className={styles.pageContainer}>
       <PageHeader title={title} subtitle={subtitle} />
       <CollectionList items={collections} />
     </div>

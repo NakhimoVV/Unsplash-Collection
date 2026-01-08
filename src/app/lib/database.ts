@@ -29,7 +29,7 @@ export async function fetchCollections() {
     count_images: Number(item.count_images),
   }))
 }
-// TODO: Продолжение следует...
+
 export async function fetchCollectionById(id: string) {
   const data = await sql<Pick<Collection, 'name' | 'count_images'>[]>`
     SELECT
@@ -44,7 +44,10 @@ export async function fetchCollectionById(id: string) {
   `
 
   if (!data[0]) {
-    return null
+    return {
+      name: 'No data!',
+      count_images: 0,
+    }
   }
 
   return {
