@@ -1,3 +1,1 @@
-import Logo from './ui/Logo'
-
-export default Logo
+export { default } from './Logo'

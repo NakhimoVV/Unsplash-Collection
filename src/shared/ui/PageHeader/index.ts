@@ -1,3 +1,1 @@
-import PageHeader from './ui/PageHeader'
-
-export default PageHeader
+export { default } from './PageHeader'

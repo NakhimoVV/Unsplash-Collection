@@ -1,3 +1,1 @@
-import Button from './ui/Button'
-
-export default Button
+export { default } from './Button'

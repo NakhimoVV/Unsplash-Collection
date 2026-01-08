@@ -19,6 +19,7 @@ export default async function Photo(props: PhotoPageProps) {
 
   if (!data) {
     notFound()
+    // TODO: сделать страницу 404
   }
 
   return (

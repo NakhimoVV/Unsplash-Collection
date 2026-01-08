@@ -1,4 +1,4 @@
-import { fetchPhotosFromCollectionById } from '@/app/lib/database'
+import { fetchImagesFromCollectionById } from '@/app/lib/database'
 
 export async function GET(
   request: Request,
@@ -11,7 +11,7 @@ export async function GET(
   const { collectionId } = await params
 
   try {
-    return Response.json(await fetchPhotosFromCollectionById(collectionId))
+    return Response.json(await fetchImagesFromCollectionById(collectionId))
   } catch (error) {
     console.error('Failed to fetch collection:', error)
 

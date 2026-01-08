@@ -1,6 +1,7 @@
 import postgres from 'postgres'
 import { Collection, CollectionImage } from '@/entities/collection/model/types'
 import { fromDB } from '@/entities/image/model/mappers/fromDB'
+import { LIMIT } from '@/shared/constants'
 
 export const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
 
@@ -31,7 +32,7 @@ export async function fetchCollections() {
 }
 
 export async function fetchCollectionById(id: string) {
-  const data = await sql<Pick<Collection, 'name' | 'count_images'>[]>`
+  const data = await sql<Pick<Collection, 'id' | 'name' | 'count_images'>[]>`
     SELECT
       c.id,
       c.name,
@@ -56,13 +57,26 @@ export async function fetchCollectionById(id: string) {
   }
 }
 
-export async function fetchPhotosFromCollectionById(id: string) {
-  const data = await sql<CollectionImage[]>`
+export async function fetchImagesFromCollectionById(id: string, page: number) {
+  const offset = (page - 1) * LIMIT
+
+  const images = await sql<CollectionImage[]>`
     SELECT *
     FROM collection_images
     WHERE collection_id = ${id}
     ORDER BY added_at DESC
+    LIMIT ${LIMIT}
+    OFFSET ${offset}
   `
 
-  return data.map(fromDB)
+  const [{ count }] = await sql<{ count: string }[]>`
+    SELECT COUNT(*) AS count
+    FROM collection_images
+    WHERE collection_id = ${id}
+  `
+
+  return {
+    images: images.map(fromDB),
+    totalCount: Number(count),
+  }
 }

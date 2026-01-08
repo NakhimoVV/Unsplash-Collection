@@ -23,7 +23,7 @@ const CollectionItem = (props: CollectionItemProps) => {
                 className={styles.image}
                 src={imgSrc}
                 fill
-                sizes="100vw"
+                sizes="360px"
                 alt=""
               />
             </div>

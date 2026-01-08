@@ -1,5 +1,5 @@
-import styles from './Button.module.scss'
 import { ComponentType, SVGProps } from 'react'
+import styles from './Button.module.scss'
 
 type ButtonProps = {
   label: string

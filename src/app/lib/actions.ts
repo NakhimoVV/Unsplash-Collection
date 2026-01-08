@@ -2,9 +2,10 @@
 
 import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
 import { unsplashApi } from '@/shared/api/unsplash'
+import { fetchImagesFromCollectionById } from '@/app/lib/database'
 
 /**
- * Server Action
+ * Server Actions
  */
 
 export async function loadPhotos(
@@ -20,4 +21,8 @@ export async function loadPhotos(
   }
 
   return await unsplashApi.getPhotosByQuery(query, page)
+}
+
+export async function loadCollectionPhotos(id: string, page: number) {
+  return fetchImagesFromCollectionById(id, page)
 }
