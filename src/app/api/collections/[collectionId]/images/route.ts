@@ -9,9 +9,13 @@ export async function GET(
   },
 ) {
   const { collectionId } = await params
+  const { searchParams } = new URL(request.url)
+  const page = Number(searchParams.get('page') ?? 1)
 
   try {
-    return Response.json(await fetchImagesFromCollectionById(collectionId))
+    return Response.json(
+      await fetchImagesFromCollectionById(collectionId, page),
+    )
   } catch (error) {
     console.error('Failed to fetch collection:', error)
 
