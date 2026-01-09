@@ -3,7 +3,7 @@ import { Collection, CollectionImage } from '@/entities/collection/model/types'
 import { fromDB } from '@/entities/image/model/mappers/fromDB'
 import { LIMIT } from '@/shared/constants'
 
-export const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
+export const sql = postgres(process.env.DATABASE_URL!, { ssl: 'require' })
 
 export async function fetchCollections() {
   const data = await sql<Collection[]>`

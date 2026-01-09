@@ -1,6 +1,3 @@
-export const dynamic = 'force-dynamic'
-export const runtime = 'nodejs'
-
 import { fetchCollections } from '@/app/lib/database'
 import CollectionList from '@/entities/collection/ui/CollectionList'
 import PageHeader from '@/shared/ui/PageHeader'
