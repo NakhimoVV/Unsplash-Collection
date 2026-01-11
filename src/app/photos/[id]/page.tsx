@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { unsplashApi } from '@/shared/api/unsplash'
-import { formatDate } from '@/shared/lib/formatDate'
+import { formatDate } from '@/shared/utils/formatDate'
 import Button from '@/shared/ui/Button'
 import IconPlus from '@/shared/assets/icons/Plus.svg'
 import IconDown from '@/shared/assets/icons/down arrow.svg'
@@ -14,14 +14,15 @@ type PhotoPageProps = {
 export default async function Photo(props: PhotoPageProps) {
   const params = await props.params
   const id = params.id
-
+  // TODO: type Image for data
   const data = await unsplashApi.getPhotoById(id)
+
+  console.log(data)
 
   if (!data) {
     notFound()
-    // TODO: сделать страницу 404
   }
-
+  // TODO: сделать клик по картинке и открыть в модалке во вьюпорте
   return (
     <section className={styles.page}>
       <div className={styles.inner}>
@@ -31,9 +32,11 @@ export default async function Photo(props: PhotoPageProps) {
               <Image
                 className={styles.image}
                 src={data.urls.regular}
-                alt={data.slug}
-                width={data.width}
-                height={data.height}
+                alt={data.alt_description}
+                fill
+                sizes={'(max-width: 768px) 50vw, 100vw'}
+                loading="eager"
+                priority
               />
             </div>
             <div className={styles.aboutBox}>

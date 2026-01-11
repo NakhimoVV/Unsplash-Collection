@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { Image } from '@/entities/image/model/type'
 import { useInfinitePagination } from '@/shared/hooks/useInfinitePagination'
 import GridMasonry from '@/features/Grid'
-import { loadCollectionPhotos } from '@/app/lib/actions'
+import { loadCollectionPhotos } from '@/shared/lib/actions'
 import { LIMIT } from '@/shared/constants'
 
 type CollectionImagesProps = {

@@ -5,7 +5,7 @@ import Search from '@/features/Search'
 import GridMasonry from '@/features/Grid'
 import { useInfinitePagination } from '@/shared/hooks/useInfinitePagination'
 import { useEffect } from 'react'
-import { loadPhotos } from '@/app/lib/actions'
+import { loadPhotos } from '@/shared/lib/actions'
 import { Image } from '@/entities/image/model/type'
 import { fromUnsplash } from '@/entities/image/model/mappers/fromUnsplash'
 

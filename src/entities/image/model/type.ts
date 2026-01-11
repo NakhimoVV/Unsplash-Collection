@@ -12,7 +12,6 @@ export type Image = {
     profile_image: { small: string; medium: string; large: string }
   }
   urls: {
-    raw: string
     full: string
     regular: string
     small: string

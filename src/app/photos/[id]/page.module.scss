@@ -1,27 +1,29 @@
-.page {
-
-}
+.page {}
 
 .inner {
-  padding-block: 52px;
-  padding-inline: 72px;
   display: flex;
   align-items: start;
   gap: 30px;
+  height: 90vh;
+  padding-block: 52px;
+  padding-inline: 72px;
 }
 
 .imageBox {
+  position: relative;
   flex: 0 1 50%;
+  height: 100%;
+}
 
-  .image {
-    border-radius: var(--border-radius-xs);
-    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 25%);
-  }
+.image {
+  border-radius: var(--border-radius-xs);
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 25%);
+  object-fit: cover;
 }
 
 .aboutBox {
-  flex: 0 1 50%;
   display: grid;
+  flex: 0 1 50%;
   row-gap: 36px;
 
   .photoInfo {

@@ -1,4 +1,4 @@
-import { fetchImagesFromCollectionById } from '@/app/lib/database'
+import { fetchImagesFromCollectionById } from '@/shared/lib/database'
 
 export async function GET(
   request: Request,

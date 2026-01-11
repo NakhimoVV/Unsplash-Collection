@@ -1,7 +1,7 @@
 import {
   fetchCollectionById,
   fetchImagesFromCollectionById,
-} from '@/app/lib/database'
+} from '@/shared/lib/database'
 import PageHeader from '@/shared/ui/PageHeader'
 import styles from './page.module.scss'
 import CollectionImages from '@/features/CollectionImages'

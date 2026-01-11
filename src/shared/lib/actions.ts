@@ -2,7 +2,7 @@
 
 import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
 import { unsplashApi } from '@/shared/api/unsplash'
-import { fetchImagesFromCollectionById } from '@/app/lib/database'
+import { fetchImagesFromCollectionById } from '@/shared/lib/database'
 
 /**
  * Server Actions

@@ -1,5 +1,5 @@
 import postgres from 'postgres'
-import { collections } from '@/app/lib/default-collections'
+import { collections } from '@/shared/lib/default-collections'
 import { unsplashApi } from '@/shared/api/unsplash'
 import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
 

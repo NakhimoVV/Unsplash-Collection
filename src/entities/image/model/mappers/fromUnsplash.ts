@@ -15,7 +15,6 @@ export function fromUnsplash(data: Result): Image {
       profile_image: data.user.profile_image,
     },
     urls: {
-      raw: data.urls.raw,
       full: data.urls.full,
       regular: data.urls.regular,
       small: data.urls.small,

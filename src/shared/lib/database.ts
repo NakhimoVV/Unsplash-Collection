@@ -12,10 +12,10 @@ export async function fetchCollections() {
       COUNT(ci.id) AS count_images,
       COALESCE(
         (ARRAY_AGG(
-          ci.urls->>'thumb'
+          ci.urls->>'small'
           ORDER BY ci.added_at DESC
           )
-          FILTER (WHERE ci.urls ? 'thumb')
+          FILTER (WHERE ci.urls ? 'small')
         )[1:3],
         ARRAY[]::text[]
       ) AS preview_images

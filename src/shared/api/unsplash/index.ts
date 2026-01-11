@@ -1,15 +1,16 @@
-import { getErrorMessage } from '@/shared/lib/getErrorMessage'
+import { getErrorMessage } from '@/shared/utils/getErrorMessage'
 
 const BASE_URL = 'https://api.unsplash.com/'
+const headers = {
+  'Accept-Version': 'v1',
+  Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+}
 
 export const unsplashApi = {
   async _fetch(endpoint: string) {
     try {
       const response = await fetch(`${BASE_URL}${endpoint}`, {
-        headers: {
-          'Accept-Version': 'v1',
-          Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
-        },
+        headers,
         cache: 'no-store',
       })
 

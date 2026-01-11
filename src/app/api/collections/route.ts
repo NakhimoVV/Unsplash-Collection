@@ -1,4 +1,4 @@
-import { fetchCollections } from '@/app/lib/database'
+import { fetchCollections } from '@/shared/lib/database'
 
 export async function GET() {
   try {

@@ -5,6 +5,13 @@
   padding-top: 36px;
 }
 
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .visually-hidden {
   @include visually-hidden;
 }

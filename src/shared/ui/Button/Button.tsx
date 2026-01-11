@@ -9,7 +9,7 @@ type ButtonProps = {
 
 const Button = (props: ButtonProps) => {
   const { label, icon: Icon } = props
-
+  // TODO: Добавить возможность скачивания через <a> + download
   return (
     <button className={styles.button}>
       {Icon && <Icon className={styles.icon} width={16} height={16} />}

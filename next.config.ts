@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
     ...sassOptions,
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',

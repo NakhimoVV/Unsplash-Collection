@@ -1,4 +1,4 @@
-import { fetchCollections } from '@/app/lib/database'
+import { fetchCollections } from '@/shared/lib/database'
 import CollectionList from '@/entities/collection/ui/CollectionList'
 import PageHeader from '@/shared/ui/PageHeader'
 import styles from './page.module.scss'
