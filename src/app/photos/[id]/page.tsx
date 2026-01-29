@@ -3,9 +3,9 @@ import { unsplashApi } from '@/shared/api/unsplash'
 import { formatDate } from '@/shared/utils/formatDate'
 import Button from '@/shared/ui/Button'
 import IconPlus from '@/shared/assets/icons/Plus.svg'
-import IconDown from '@/shared/assets/icons/down arrow.svg'
 import { notFound } from 'next/navigation'
 import styles from './page.module.scss'
+import DownloadButton from '@/entities/image/ui/DowloadButton/DownloadButton'
 
 type PhotoPageProps = {
   params: Promise<{ id: string }>
@@ -22,7 +22,9 @@ export default async function Photo(props: PhotoPageProps) {
   if (!data) {
     notFound()
   }
+
   // TODO: сделать клик по картинке и открыть в модалке во вьюпорте
+
   return (
     <section className={styles.page}>
       <div className={styles.inner}>
@@ -59,7 +61,10 @@ export default async function Photo(props: PhotoPageProps) {
                 </p>
                 <div className={styles.actions}>
                   <Button label="Add to Collection" icon={IconPlus} />
-                  <Button label="Download" icon={IconDown} />
+                  <DownloadButton
+                    imageUrl={data.links.download}
+                    logUrl={data.links.download_location}
+                  />
                 </div>
               </div>
               <div className={styles.photoCollections}>Collections</div>

@@ -1,18 +1,18 @@
 .button {
   @include flex-center(true);
 
+  column-gap: 10px;
+  padding: 12px 24px;
   font-family: var(--font-outfit), sans-serif;
+  font-weight: 500;
+  background-color: var(--color-ligth);
   border: none;
   border-radius: var(--border-radius-xs);
-  background-color: var(--color-ligth);
   user-select: none;
-  padding: 12px 24px;
-  column-gap: 10px;
-  font-weight: 500;
 
   @include hover {
+    color: var(--color-white); 
     background-color: var(--color-accent);
-    color: var(--color-white);
   }
 
   &:active {

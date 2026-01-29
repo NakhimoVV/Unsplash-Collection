@@ -42,4 +42,8 @@ export const unsplashApi = {
   async getPhotoById(id: string) {
     return this._fetch(`photos/${id}`)
   },
+
+  async getFilePhoto(url: string) {
+    return this._fetch(url)
+  },
 }

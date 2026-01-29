@@ -26,3 +26,7 @@ export async function loadPhotos(
 export async function loadCollectionPhotos(id: string, page: number) {
   return fetchImagesFromCollectionById(id, page)
 }
+
+export async function downloadPhoto(url: string) {
+  return unsplashApi.getFilePhoto(url)
+}
