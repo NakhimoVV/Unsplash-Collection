@@ -5,10 +5,7 @@ import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import styles from './NavLinks.module.scss'
 
-type NavLinksProps = {}
-
-const NavLinks = (props: NavLinksProps) => {
-  const {} = props
+const NavLinks = () => {
   const pathname = usePathname()
 
   const links = [

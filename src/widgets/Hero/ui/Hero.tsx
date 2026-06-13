@@ -2,10 +2,7 @@ import styles from './Hero.module.scss'
 import clsx from 'clsx'
 import Search from '@/features/Search'
 
-type HeroProps = {}
-
-const Hero = (props: HeroProps) => {
-  const {} = props
+const Hero = () => {
   const titleId = 'hero-title'
 
   return (

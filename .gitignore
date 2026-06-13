@@ -42,3 +42,8 @@ next-env.d.ts
 
 # WebStorm
 .idea
+
+# AI settings
+.playwright-mcp/
+AGENTS.md
+docs/architecture-rules.md
