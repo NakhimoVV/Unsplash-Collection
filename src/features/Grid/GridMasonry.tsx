@@ -66,8 +66,12 @@ const GridMasonry = <T extends Image>(props: GridMasonryProps<T>) => {
       <div className={styles.imagesGrid}>
         {columnsData.map((column, columnIndex) => (
           <div key={columnIndex} className={styles.column}>
-            {column.map((image) => (
-              <GridElement image={image} key={image.id} />
+            {column.map((image, imageIndex) => (
+              <GridElement
+                image={image}
+                isAboveFold={imageIndex === 0}
+                key={image.id}
+              />
             ))}
           </div>
         ))}

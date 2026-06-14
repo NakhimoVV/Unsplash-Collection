@@ -37,6 +37,9 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
   `src/shared/hooks/useInfinitePagination` when a feature passes a stable
   `cacheKey`; cache helpers live in `src/shared/lib/infinitePaginationCache`.
   Current opt-in lists are search results and collection images.
+- Image lists mark only above-the-fold candidates as eager: the first item in
+  each masonry column and the first collection preview. Other list images stay
+  lazy-loaded.
 
 ## Dependency Maintenance
 

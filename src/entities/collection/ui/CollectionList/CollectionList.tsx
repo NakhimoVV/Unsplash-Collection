@@ -13,8 +13,8 @@ const CollectionList = (props: CollectionListProps) => {
 
   return (
     <ul className={styles.collectionList}>
-      {items.map((item) => (
-        <CollectionItem key={item.id} item={item} />
+      {items.map((item, index) => (
+        <CollectionItem isAboveFold={index === 0} key={item.id} item={item} />
       ))}
     </ul>
   )

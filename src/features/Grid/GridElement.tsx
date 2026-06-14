@@ -6,7 +6,13 @@ import { useBlurDataURL } from '@/shared/hooks/useBlurDataURL'
 
 import styles from './GridElement.module.scss'
 
-const GridElement = ({ image }: { image: ImageType }) => {
+type GridElementProps = {
+  image: ImageType
+  isAboveFold?: boolean
+}
+
+const GridElement = (props: GridElementProps) => {
+  const { image, isAboveFold = false } = props
   const blurDataURL = useBlurDataURL(image.blur_hash)
 
   // Calc the correct dimensions to maintain proportions
@@ -22,7 +28,7 @@ const GridElement = ({ image }: { image: ImageType }) => {
         alt={image.description || `Photo by ${image.user.name}`}
         width={baseWidth}
         height={calculatedHeight}
-        loading="lazy"
+        loading={isAboveFold ? 'eager' : 'lazy'}
         placeholder={blurDataURL ? 'blur' : 'empty'}
         blurDataURL={blurDataURL}
         sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"

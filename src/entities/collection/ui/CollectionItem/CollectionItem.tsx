@@ -7,10 +7,11 @@ import styles from './CollectionItem.module.scss'
 
 type CollectionItemProps = {
   item: Collection
+  isAboveFold?: boolean
 }
 
 const CollectionItem = (props: CollectionItemProps) => {
-  const { item } = props
+  const { item, isAboveFold = false } = props
 
   return (
     <li className={styles.collection}>
@@ -19,7 +20,7 @@ const CollectionItem = (props: CollectionItemProps) => {
           className={styles.header}
           data-preview-count={item.preview_images.length}
         >
-          {item.preview_images.map((imgSrc) => (
+          {item.preview_images.map((imgSrc, imageIndex) => (
             <div className={styles.imageWrapper} key={imgSrc}>
               <Image
                 className={styles.image}
@@ -27,6 +28,7 @@ const CollectionItem = (props: CollectionItemProps) => {
                 fill
                 sizes="360px"
                 alt=""
+                loading={isAboveFold && imageIndex === 0 ? 'eager' : 'lazy'}
               />
             </div>
           ))}
