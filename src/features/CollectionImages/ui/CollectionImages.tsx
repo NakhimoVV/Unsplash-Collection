@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
 import GridMasonry from '@/features/Grid'
 import { Image } from '@/entities/image/model/type'
@@ -16,20 +16,29 @@ type CollectionImagesProps = {
 
 const CollectionImages = (props: CollectionImagesProps) => {
   const { id, initialItems, totalCount } = props
+  const totalPages = Math.ceil(totalCount / LIMIT)
 
-  const { items, loadMore, hasMore, isLoading, setItems } =
-    useInfinitePagination(async (page) => {
+  const fetchCollectionPage = useCallback(
+    async (page: number) => {
       const data = await loadCollectionPhotos(id, page)
 
       return {
         items: data.images,
-        totalPages: Math.ceil(totalCount / LIMIT),
+        totalPages,
       }
-    })
+    },
+    [id, totalPages],
+  )
+
+  const { items, loadMore, hasMore, isLoading, reset } =
+    useInfinitePagination(fetchCollectionPage)
 
   useEffect(() => {
-    setItems(initialItems)
-  }, [id])
+    reset({
+      items: initialItems,
+      hasMore: totalPages > 1,
+    })
+  }, [initialItems, reset, totalPages])
 
   return (
     <GridMasonry

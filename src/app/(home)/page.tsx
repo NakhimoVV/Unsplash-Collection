@@ -23,7 +23,14 @@ export default async function Home(props: HomeProps) {
       await unsplashApi.getPhotosByQuery(query, page)
     const initialData = initialResponse.results.map(fromUnsplash)
 
-    return <SearchList query={query} page={page} initialData={initialData} />
+    return (
+      <SearchList
+        query={query}
+        page={page}
+        initialData={initialData}
+        totalPages={initialResponse.total_pages}
+      />
+    )
   }
 
   return <Hero />

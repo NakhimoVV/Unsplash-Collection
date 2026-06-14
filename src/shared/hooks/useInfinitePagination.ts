@@ -5,6 +5,12 @@ type PageResult<T> = {
   totalPages?: number
 }
 
+type ResetOptions<T> = {
+  items?: T[]
+  page?: number
+  hasMore?: boolean
+}
+
 export function useInfinitePagination<T>(
   fetchPage: (page: number) => Promise<PageResult<T>>,
 ) {
@@ -36,14 +42,13 @@ export function useInfinitePagination<T>(
     } finally {
       setIsLoading(false)
     }
-  }, [page, isLoading, hasMore])
+  }, [fetchPage, page, isLoading, hasMore])
 
-  // Reset state when "query" changes
-  const reset = () => {
-    setItems([])
-    setPage(1)
-    setHasMore(true)
-  }
+  const reset = useCallback((options: ResetOptions<T> = {}) => {
+    setItems(options.items ?? [])
+    setPage(options.page ?? 1)
+    setHasMore(options.hasMore ?? true)
+  }, [])
 
   return { items, loadMore, isLoading, hasMore, setItems, reset }
 }
