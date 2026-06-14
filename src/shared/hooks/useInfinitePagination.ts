@@ -1,4 +1,9 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
+
+import {
+  readInfinitePaginationCache,
+  writeInfinitePaginationCache,
+} from '@/shared/lib/infinitePaginationCache'
 
 type PageResult<T> = {
   items: T[]
@@ -11,44 +16,108 @@ type ResetOptions<T> = {
   hasMore?: boolean
 }
 
+type PaginationState<T> = {
+  items: T[]
+  page: number
+  isLoading: boolean
+  hasMore: boolean
+}
+
+type UseInfinitePaginationOptions = {
+  cacheKey?: string
+}
+
 export function useInfinitePagination<T>(
   fetchPage: (page: number) => Promise<PageResult<T>>,
+  options: UseInfinitePaginationOptions = {},
 ) {
-  const [items, setItems] = useState<T[]>([])
-  const [page, setPage] = useState(1)
-  const [isLoading, setIsLoading] = useState(false)
-  const [hasMore, setHasMore] = useState(true)
+  const { cacheKey } = options
+  const [state, setState] = useState<PaginationState<T>>({
+    items: [],
+    page: 1,
+    isLoading: false,
+    hasMore: true,
+  })
+  const stateRef = useRef(state)
+
+  const updateState = useCallback((nextState: PaginationState<T>) => {
+    stateRef.current = nextState
+    setState(nextState)
+  }, [])
 
   const loadMore = useCallback(async () => {
-    if (isLoading || !hasMore) {
+    const currentState = stateRef.current
+
+    if (currentState.isLoading || !currentState.hasMore) {
       return
     }
 
-    setIsLoading(true)
+    updateState({ ...currentState, isLoading: true })
     try {
-      const nextPage = page + 1
+      const nextPage = currentState.page + 1
       const result = await fetchPage(nextPage)
+      const latestState = stateRef.current
+      const nextItems = [...latestState.items, ...result.items]
+      const nextHasMore =
+        result.totalPages !== undefined
+          ? nextPage < result.totalPages
+          : result.items.length > 0
 
-      setItems((prev) => [...prev, ...result.items])
-      setPage(nextPage)
+      const nextState = {
+        items: nextItems,
+        page: nextPage,
+        isLoading: false,
+        hasMore: nextHasMore,
+      }
 
-      if (result.totalPages !== undefined) {
-        setHasMore(nextPage < result.totalPages)
-      } else {
-        setHasMore(result.items.length > 0)
+      updateState(nextState)
+
+      if (cacheKey) {
+        writeInfinitePaginationCache(cacheKey, {
+          items: nextItems,
+          page: nextPage,
+          hasMore: nextHasMore,
+        })
       }
     } catch (error) {
       console.error('Error loading more items:', error)
-    } finally {
-      setIsLoading(false)
+      updateState({ ...stateRef.current, isLoading: false })
     }
-  }, [fetchPage, page, isLoading, hasMore])
+  }, [fetchPage, cacheKey, updateState])
 
-  const reset = useCallback((options: ResetOptions<T> = {}) => {
-    setItems(options.items ?? [])
-    setPage(options.page ?? 1)
-    setHasMore(options.hasMore ?? true)
-  }, [])
+  const reset = useCallback(
+    (resetOptions: ResetOptions<T> = {}) => {
+      const resetPage = resetOptions.page ?? 1
+      const cachedState = cacheKey
+        ? readInfinitePaginationCache<T>(cacheKey)
+        : null
+      const nextState =
+        cachedState && cachedState.page >= resetPage
+          ? cachedState
+          : {
+              items: resetOptions.items ?? [],
+              page: resetPage,
+              hasMore: resetOptions.hasMore ?? true,
+            }
 
-  return { items, loadMore, isLoading, hasMore, setItems, reset }
+      updateState({
+        ...nextState,
+        isLoading: false,
+      })
+
+      if (cacheKey) {
+        writeInfinitePaginationCache(cacheKey, nextState)
+      }
+    },
+    [cacheKey, updateState],
+  )
+
+  return {
+    items: state.items,
+    loadMore,
+    isLoading: state.isLoading,
+    hasMore: state.hasMore,
+    setItems: (items: T[]) => updateState({ ...stateRef.current, items }),
+    reset,
+  }
 }

@@ -33,6 +33,10 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
   from `entities`.
 - Server Actions находятся в `src/shared/lib/actions.ts`.
 - Unsplash data is mapped to entity UI models in `src/entities/*/model`.
+- Infinite pagination state can be restored from `sessionStorage` through
+  `src/shared/hooks/useInfinitePagination` when a feature passes a stable
+  `cacheKey`; cache helpers live in `src/shared/lib/infinitePaginationCache`.
+  Current opt-in lists are search results and collection images.
 
 ## Dependency Maintenance
 

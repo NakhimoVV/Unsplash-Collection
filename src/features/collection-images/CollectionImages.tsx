@@ -17,6 +17,7 @@ type CollectionImagesProps = {
 const CollectionImages = (props: CollectionImagesProps) => {
   const { id, initialItems, totalCount } = props
   const totalPages = Math.ceil(totalCount / LIMIT)
+  const cacheKey = `collection:${id}`
 
   const fetchCollectionPage = useCallback(
     async (page: number) => {
@@ -30,8 +31,10 @@ const CollectionImages = (props: CollectionImagesProps) => {
     [id, totalPages],
   )
 
-  const { items, loadMore, hasMore, isLoading, reset } =
-    useInfinitePagination(fetchCollectionPage)
+  const { items, loadMore, hasMore, isLoading, reset } = useInfinitePagination(
+    fetchCollectionPage,
+    { cacheKey },
+  )
 
   useEffect(() => {
     reset({

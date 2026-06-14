@@ -21,8 +21,8 @@ type SearchListProps = {
 const SearchList = (props: SearchListProps) => {
   const { query, page, initialData, totalPages } = props
   const titleId = 'search-title'
+  const cacheKey = `search:${query}`
   // TODO: чекнуть возможные проблемы с blurhash!
-  // TODO: при нажатии назад всё заново загружается(
   const fetchSearchPage = useCallback(
     async (page: number) => {
       const data = await loadPhotos(query, page)
@@ -35,8 +35,10 @@ const SearchList = (props: SearchListProps) => {
     [query],
   )
 
-  const { items, hasMore, loadMore, isLoading, reset } =
-    useInfinitePagination(fetchSearchPage)
+  const { items, hasMore, loadMore, isLoading, reset } = useInfinitePagination(
+    fetchSearchPage,
+    { cacheKey },
+  )
 
   useEffect(() => {
     reset({
