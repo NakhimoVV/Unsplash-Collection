@@ -1,8 +1,11 @@
-import type { Metadata } from 'next'
-import { fontOutfit, fontVietnam } from '@/shared/styles/fonts'
-import '@/shared/styles'
 import { ReactNode } from 'react'
+
 import Header from '@/widgets/Header'
+import { fontOutfit, fontVietnam } from '@/shared/styles/fonts'
+
+import type { Metadata } from 'next'
+
+import '@/shared/styles'
 
 export const metadata: Metadata = {
   title: 'Unsplash Collection',

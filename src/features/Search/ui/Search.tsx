@@ -1,9 +1,11 @@
 'use client'
 
-import styles from './Search.module.scss'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormEvent, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
 import IconSearch from '@/shared/assets/icons/Search.svg'
+
+import styles from './Search.module.scss'
 
 type SearchProps = {
   placeholder?: string

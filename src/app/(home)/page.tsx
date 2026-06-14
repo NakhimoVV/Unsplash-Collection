@@ -1,8 +1,8 @@
 import Hero from '@/widgets/Hero'
 import SearchList from '@/features/Search/ui/SearchList'
+import { fromUnsplash } from '@/entities/image/model/mappers/fromUnsplash'
 import { unsplashApi } from '@/shared/api/unsplash'
 import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
-import { fromUnsplash } from '@/entities/image/model/mappers/fromUnsplash'
 
 type HomeProps = {
   searchParams?: Promise<{

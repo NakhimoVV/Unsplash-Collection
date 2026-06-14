@@ -1,6 +1,8 @@
-import styles from './Hero.module.scss'
 import clsx from 'clsx'
+
 import Search from '@/features/Search'
+
+import styles from './Hero.module.scss'
 
 const Hero = () => {
   const titleId = 'hero-title'

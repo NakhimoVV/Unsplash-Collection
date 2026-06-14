@@ -1,8 +1,8 @@
 'use client'
 
 import IconDown from '@/shared/assets/icons/down arrow.svg'
-import Button from '@/shared/ui/Button'
 import { downloadPhoto } from '@/shared/lib/actions'
+import Button from '@/shared/ui/Button'
 
 type DownloadButtonProps = {
   imageUrl: string

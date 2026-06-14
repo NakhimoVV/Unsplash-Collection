@@ -1,5 +1,7 @@
 import Link from 'next/link'
+
 import LogoIcon from '@/shared/assets/Logo.svg'
+
 import styles from './Logo.module.scss'
 
 const Logo = () => {

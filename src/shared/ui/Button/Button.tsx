@@ -1,4 +1,5 @@
 import { ComponentType, SVGProps } from 'react'
+
 import styles from './Button.module.scss'
 
 type ButtonProps = {

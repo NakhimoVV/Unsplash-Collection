@@ -1,10 +1,11 @@
+import CollectionImages from '@/features/CollectionImages'
 import {
   fetchCollectionById,
   fetchImagesFromCollectionById,
 } from '@/shared/lib/database'
 import PageHeader from '@/shared/ui/PageHeader'
+
 import styles from './page.module.scss'
-import CollectionImages from '@/features/CollectionImages'
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params

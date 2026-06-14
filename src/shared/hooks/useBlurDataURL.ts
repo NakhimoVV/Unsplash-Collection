@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import { blurHashToDataURL } from '@/shared/utils/blurhash'
 
 /**

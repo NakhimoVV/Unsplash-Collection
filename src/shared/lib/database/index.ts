@@ -1,12 +1,17 @@
 import postgres from 'postgres'
-import { Collection, CollectionImage } from '@/entities/collection/model/types'
-import { fromDB } from '@/entities/image/model/mappers/fromDB'
+
 import { LIMIT } from '@/shared/constants'
+import { mapCollectionImageFromDatabase } from '@/shared/lib/database/mappers'
+
+import type {
+  DatabaseCollection,
+  DatabaseCollectionImage,
+} from '@/shared/lib/database/types'
 
 export const sql = postgres(process.env.DATABASE_URL!, { ssl: 'require' })
 
 export async function fetchCollections() {
-  const data = await sql<Collection[]>`
+  const data = await sql<DatabaseCollection[]>`
     SELECT
       c.*,
       COUNT(ci.id) AS count_images,
@@ -32,7 +37,9 @@ export async function fetchCollections() {
 }
 
 export async function fetchCollectionById(id: string) {
-  const data = await sql<Pick<Collection, 'id' | 'name' | 'count_images'>[]>`
+  const data = await sql<
+    Pick<DatabaseCollection, 'id' | 'name' | 'count_images'>[]
+  >`
     SELECT
       c.id,
       c.name,
@@ -60,7 +67,7 @@ export async function fetchCollectionById(id: string) {
 export async function fetchImagesFromCollectionById(id: string, page: number) {
   const offset = (page - 1) * LIMIT
 
-  const images = await sql<CollectionImage[]>`
+  const images = await sql<DatabaseCollectionImage[]>`
     SELECT *
     FROM collection_images
     WHERE collection_id = ${id}
@@ -76,7 +83,7 @@ export async function fetchImagesFromCollectionById(id: string, page: number) {
   `
 
   return {
-    images: images.map(fromDB),
+    images: images.map(mapCollectionImageFromDatabase),
     totalCount: Number(count),
   }
 }

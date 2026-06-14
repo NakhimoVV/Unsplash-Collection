@@ -1,11 +1,14 @@
 'use client'
 
-import styles from './GridMasonry.module.scss'
-import GridElement from './GridElement'
-import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll'
 import { useMemo } from 'react'
-import { useResponsiveColumns } from '@/shared/hooks/useResponsiveColumns'
+
 import { Image } from '@/entities/image/model/type'
+import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll'
+import { useResponsiveColumns } from '@/shared/hooks/useResponsiveColumns'
+
+import GridElement from './GridElement'
+
+import styles from './GridMasonry.module.scss'
 
 type GridMasonryProps<T extends Image> = {
   items: T[]

@@ -1,8 +1,10 @@
-import styles from './GridElement.module.scss'
+import Image from 'next/image'
+import Link from 'next/link'
+
 import { Image as ImageType } from '@/entities/image/model/type'
 import { useBlurDataURL } from '@/shared/hooks/useBlurDataURL'
-import Link from 'next/link'
-import Image from 'next/image'
+
+import styles from './GridElement.module.scss'
 
 const GridElement = ({ image }: { image: ImageType }) => {
   const blurDataURL = useBlurDataURL(image.blur_hash)

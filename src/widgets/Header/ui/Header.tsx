@@ -1,6 +1,7 @@
-import styles from './Header.module.scss'
 import Logo from '@/shared/ui/Logo'
 import NavLinks from '@/shared/ui/NavLinks'
+
+import styles from './Header.module.scss'
 
 type HeaderProps = {
   className?: string

@@ -1,7 +1,7 @@
 'use server'
 
-import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
 import { unsplashApi } from '@/shared/api/unsplash'
+import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
 import { fetchImagesFromCollectionById } from '@/shared/lib/database'
 
 /**

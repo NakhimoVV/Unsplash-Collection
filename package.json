@@ -7,7 +7,14 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "check": "pnpm lint && pnpm lint:types && pnpm lint:styles && pnpm format:check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:types": "tsc --noEmit --incremental false",
+    "lint:styles": "stylelint \"src/**/*.{scss,css}\"",
+    "lint:styles:fix": "stylelint \"src/**/*.{scss,css}\" --fix"
   },
   "dependencies": {
     "blurhash": "^2.0.5",
@@ -26,6 +33,7 @@
     "eslint-config-next": "16.2.9",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",
+    "eslint-plugin-simple-import-sort": "^13.0.0",
     "postcss-pxtorem": "^6.1.0",
     "prettier": "^3.8.4",
     "sass": "^1.101.0",

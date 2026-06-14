@@ -1,7 +1,8 @@
 import postgres from 'postgres'
-import { collections } from '@/shared/lib/default-collections'
+
 import { unsplashApi } from '@/shared/api/unsplash'
 import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
+import { collections } from '@/shared/lib/default-collections'
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
 

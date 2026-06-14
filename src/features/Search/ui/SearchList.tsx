@@ -1,13 +1,15 @@
 'use client'
 
-import styles from './SearchList.module.scss'
-import Search from '@/features/Search'
-import GridMasonry from '@/features/Grid'
-import { useInfinitePagination } from '@/shared/hooks/useInfinitePagination'
 import { useEffect } from 'react'
-import { loadPhotos } from '@/shared/lib/actions'
-import { Image } from '@/entities/image/model/type'
+
+import GridMasonry from '@/features/Grid'
+import Search from '@/features/Search'
 import { fromUnsplash } from '@/entities/image/model/mappers/fromUnsplash'
+import { Image } from '@/entities/image/model/type'
+import { useInfinitePagination } from '@/shared/hooks/useInfinitePagination'
+import { loadPhotos } from '@/shared/lib/actions'
+
+import styles from './SearchList.module.scss'
 
 type SearchListProps = {
   query: string

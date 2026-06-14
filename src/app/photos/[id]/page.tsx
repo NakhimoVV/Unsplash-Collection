@@ -1,11 +1,13 @@
 import Image from 'next/image'
-import { unsplashApi } from '@/shared/api/unsplash'
-import { formatDate } from '@/shared/utils/formatDate'
-import Button from '@/shared/ui/Button'
-import IconPlus from '@/shared/assets/icons/Plus.svg'
 import { notFound } from 'next/navigation'
-import styles from './page.module.scss'
+
 import DownloadButton from '@/entities/image/ui/DowloadButton/DownloadButton'
+import { unsplashApi } from '@/shared/api/unsplash'
+import IconPlus from '@/shared/assets/icons/Plus.svg'
+import Button from '@/shared/ui/Button'
+import { formatDate } from '@/shared/utils/formatDate'
+
+import styles from './page.module.scss'
 
 type PhotoPageProps = {
   params: Promise<{ id: string }>
@@ -26,7 +28,7 @@ export default async function Photo(props: PhotoPageProps) {
   // TODO: сделать клик по картинке и открыть в модалке во вьюпорте
 
   return (
-    <section className={styles.page}>
+    <section>
       <div className={styles.inner}>
         {data && (
           <>

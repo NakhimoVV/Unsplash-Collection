@@ -1,7 +1,9 @@
-import styles from './CollectionItem.module.scss'
-import type { Collection } from '@/entities/collection/model/types'
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
+
+import type { Collection } from '@/entities/collection/model/types'
+
+import styles from './CollectionItem.module.scss'
 
 type CollectionItemProps = {
   item: Collection
