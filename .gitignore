@@ -47,3 +47,4 @@ next-env.d.ts
 .playwright-mcp/
 AGENTS.md
 docs/architecture-rules.md
+docs/styling-rules.md
