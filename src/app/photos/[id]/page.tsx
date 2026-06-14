@@ -34,7 +34,11 @@ export default async function Photo(props: PhotoPageProps) {
               <Image
                 className={styles.image}
                 src={data.urls.regular}
-                alt={data.alt_description}
+                alt={
+                  data.alt_description ??
+                  data.description ??
+                  `Photo by ${data.user.name}`
+                }
                 fill
                 sizes={'(max-width: 768px) 50vw, 100vw'}
                 loading="eager"

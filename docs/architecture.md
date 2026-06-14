@@ -3,6 +3,8 @@
 Проект использует Next.js App Router и FSD-подход из
 `docs/architecture-rules.md`.
 
+I deliberately excluded AI settings and local rule files (agents.md, docs/architecture-rules.md, and docs/styling-rules.md) from Git tracking.
+
 ## Layers
 
 - `src/app` - маршруты, layout, pages и route handlers.

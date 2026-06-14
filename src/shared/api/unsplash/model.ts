@@ -4,6 +4,15 @@ export type UnsplashSearchResponse = Readonly<{
   results: Result[]
 }>
 
+export type UnsplashPhoto = Result &
+  Readonly<{
+    alt_description: string | null
+    links: ResultLinks &
+      Readonly<{
+        download_location: string
+      }>
+  }>
+
 export type Result = Readonly<{
   id: string
   created_at: string
