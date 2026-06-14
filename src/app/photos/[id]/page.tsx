@@ -18,8 +18,6 @@ export default async function Photo(props: PhotoPageProps) {
   const id = params.id
   const photo = fromUnsplashPhoto(await unsplashApi.getPhotoById(id))
 
-  // TODO: сделать клик по картинке и открыть в модалке во вьюпорте
-
   return (
     <section>
       <div className={styles.inner}>

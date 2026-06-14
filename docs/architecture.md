@@ -36,6 +36,8 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
   detailed photo routes use an `ImageDetails` model so page UI does not depend
   on raw Unsplash response field names such as `alt_description` or
   `download_location`.
+- The base `Image` entity model contains only fields used by image list/grid UI;
+  detail-only fields are kept in `ImageDetails`.
 - Infinite pagination state can be restored from `sessionStorage` through
   `src/shared/hooks/useInfinitePagination` when a feature passes a stable
   `cacheKey`; cache helpers live in `src/shared/lib/infinitePaginationCache`.

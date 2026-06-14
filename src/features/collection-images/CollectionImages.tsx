@@ -3,10 +3,11 @@
 import { useCallback, useEffect } from 'react'
 
 import GridMasonry from '@/features/grid'
-import { Image } from '@/entities/image/model/type'
 import { LIMIT } from '@/shared/constants'
 import { useInfinitePagination } from '@/shared/hooks/useInfinitePagination'
 import { loadCollectionPhotos } from '@/shared/lib/actions'
+
+import type { Image } from '@/entities/image/model/type'
 
 type CollectionImagesProps = {
   id: string
@@ -20,7 +21,7 @@ const CollectionImages = (props: CollectionImagesProps) => {
   const cacheKey = `collection:${id}`
 
   const fetchCollectionPage = useCallback(
-    async (page: number) => {
+    async (page: number): Promise<{ items: Image[]; totalPages: number }> => {
       const data = await loadCollectionPhotos(id, page)
 
       return {
