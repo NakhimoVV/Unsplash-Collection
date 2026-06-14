@@ -1,3 +1,3 @@
-import GridMasonry from './ui/GridMasonry'
+import GridMasonry from './GridMasonry'
 
 export default GridMasonry

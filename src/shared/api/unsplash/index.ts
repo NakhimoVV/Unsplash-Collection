@@ -1,10 +1,11 @@
 import {
-  Result,
+  UnsplashDownloadResponse,
   UnsplashPhoto,
   UnsplashSearchResponse,
 } from '@/shared/api/unsplash/model'
 
 const BASE_URL = 'https://api.unsplash.com/'
+const ABSOLUTE_URL_PATTERN = /^https?:\/\//u
 const headers = {
   'Accept-Version': 'v1',
   Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
@@ -24,9 +25,15 @@ function isUnsplashErrorResponse(data: unknown): data is UnsplashErrorResponse {
   )
 }
 
+function resolveRequestUrl(endpoint: string): string {
+  return ABSOLUTE_URL_PATTERN.test(endpoint)
+    ? endpoint
+    : `${BASE_URL}${endpoint}`
+}
+
 export const unsplashApi = {
   async _fetch<T>(endpoint: string): Promise<T> {
-    const response = await fetch(`${BASE_URL}${endpoint}`, {
+    const response = await fetch(resolveRequestUrl(endpoint), {
       headers,
       cache: 'no-store',
     })
@@ -58,7 +65,7 @@ export const unsplashApi = {
     return this._fetch<UnsplashPhoto>(`photos/${id}`)
   },
 
-  async getFilePhoto(url: string): Promise<Result> {
-    return this._fetch<Result>(url)
+  async getFilePhoto(url: string): Promise<UnsplashDownloadResponse> {
+    return this._fetch<UnsplashDownloadResponse>(url)
   },
 }

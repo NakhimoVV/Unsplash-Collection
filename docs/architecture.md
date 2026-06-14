@@ -11,6 +11,10 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
 - `src/widgets` - крупные композиционные блоки страниц.
 - `src/features` - пользовательские сценарии: поиск, masonry grid,
   изображения коллекции.
+- Компоненты features лежат напрямую в своей feature-папке; вложенные
+  `ui`-папки в `src/features` не используются.
+- Имена feature-папок оформляются в kebab-case, например
+  `collection-images`.
 - `src/entities` - доменные модели и UI сущностей: image, collection.
 - `src/shared` - общие API-клиенты, server actions, hooks, UI, стили,
   константы и утилиты.
@@ -18,6 +22,11 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
 ## Infrastructure
 
 - Unsplash API изолирован в `src/shared/api/unsplash`.
+- Unsplash download tracking uses `links.download_location` through
+  `src/shared/api/unsplash`; reusable UI components such as `Button` only
+  render link/button semantics and do not contain Unsplash-specific logic.
+- Browser-side forced image downloads live in `src/features/image-download`,
+  so the user scenario stays outside reusable shared UI and entity models.
 - PostgreSQL/Neon доступ изолирован в `src/shared/lib/database`.
 - DB row contracts and DB-to-client mappers live inside
   `src/shared/lib/database` so the shared infrastructure layer does not import

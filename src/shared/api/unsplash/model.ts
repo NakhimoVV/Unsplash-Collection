@@ -13,6 +13,10 @@ export type UnsplashPhoto = Result &
       }>
   }>
 
+export type UnsplashDownloadResponse = Readonly<{
+  url: string
+}>
+
 export type Result = Readonly<{
   id: string
   created_at: string

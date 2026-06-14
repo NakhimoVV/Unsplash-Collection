@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect } from 'react'
 
-import GridMasonry from '@/features/Grid'
+import GridMasonry from '@/features/grid'
 import { Image } from '@/entities/image/model/type'
 import { LIMIT } from '@/shared/constants'
 import { useInfinitePagination } from '@/shared/hooks/useInfinitePagination'

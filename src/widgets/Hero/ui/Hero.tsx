@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import Search from '@/features/Search'
+import Search from '@/features/search'
 
 import styles from './Hero.module.scss'
 

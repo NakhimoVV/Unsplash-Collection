@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
-import DownloadButton from '@/entities/image/ui/DowloadButton/DownloadButton'
+import DownloadButton from '@/features/image-download'
 import { unsplashApi } from '@/shared/api/unsplash'
 import IconPlus from '@/shared/assets/icons/Plus.svg'
 import Button from '@/shared/ui/Button'
@@ -68,7 +68,7 @@ export default async function Photo(props: PhotoPageProps) {
                 <div className={styles.actions}>
                   <Button label="Add to Collection" icon={IconPlus} />
                   <DownloadButton
-                    imageUrl={data.links.download}
+                    imageUrl={data.urls.full}
                     logUrl={data.links.download_location}
                   />
                 </div>

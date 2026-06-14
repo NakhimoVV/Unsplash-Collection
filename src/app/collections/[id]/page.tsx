@@ -1,4 +1,4 @@
-import CollectionImages from '@/features/CollectionImages'
+import CollectionImages from '@/features/collection-images'
 import {
   fetchCollectionById,
   fetchImagesFromCollectionById,

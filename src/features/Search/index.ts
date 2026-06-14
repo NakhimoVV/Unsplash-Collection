@@ -1,3 +1,3 @@
-import Search from './ui/Search'
+import Search from './Search'
 
 export default Search

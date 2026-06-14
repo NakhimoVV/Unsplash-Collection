@@ -1,5 +1,5 @@
 import Hero from '@/widgets/Hero'
-import SearchList from '@/features/Search/ui/SearchList'
+import SearchList from '@/features/search/SearchList'
 import { fromUnsplash } from '@/entities/image/model/mappers/fromUnsplash'
 import { unsplashApi } from '@/shared/api/unsplash'
 import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'

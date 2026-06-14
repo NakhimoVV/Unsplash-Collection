@@ -1,4 +1,4 @@
-import { ComponentType, SVGProps } from 'react'
+import { ComponentType, MouseEventHandler, SVGProps } from 'react'
 
 import styles from './Button.module.scss'
 
@@ -7,27 +7,33 @@ type ButtonProps = {
   icon?: ComponentType<SVGProps<SVGSVGElement>>
   download?: boolean
   href?: string
-  onClick?: () => void
+  onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
 }
 
 const Button = (props: ButtonProps) => {
   const { label, icon: Icon, download, href, onClick } = props
-  // TODO: Добавить возможность скачивания через <a> + download
 
-  const Component = download || href ? 'a' : 'button'
-  const downloadProps = {
-    href,
-    download: download,
-    target: '_blank',
-    rel: 'nofollow',
+  if (href) {
+    return (
+      <a
+        className={styles.button}
+        download={download || undefined}
+        href={href}
+        onClick={onClick}
+        rel={download ? 'nofollow' : undefined}
+        target={download ? '_blank' : undefined}
+      >
+        {Icon && <Icon className={styles.icon} width={16} height={16} />}
+        <span>{label}</span>
+      </a>
+    )
   }
-  const dependentProps = download && href ? downloadProps : null
 
   return (
-    <Component className={styles.button} {...dependentProps} onClick={onClick}>
+    <button className={styles.button} onClick={onClick} type="button">
       {Icon && <Icon className={styles.icon} width={16} height={16} />}
       <span>{label}</span>
-    </Component>
+    </button>
   )
 }
 

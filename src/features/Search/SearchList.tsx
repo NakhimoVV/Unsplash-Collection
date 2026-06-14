@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect } from 'react'
 
-import GridMasonry from '@/features/Grid'
-import Search from '@/features/Search'
+import GridMasonry from '@/features/grid'
+import Search from '@/features/search'
 import { fromUnsplash } from '@/entities/image/model/mappers/fromUnsplash'
 import { Image } from '@/entities/image/model/type'
 import { useInfinitePagination } from '@/shared/hooks/useInfinitePagination'
