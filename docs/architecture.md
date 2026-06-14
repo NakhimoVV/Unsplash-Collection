@@ -32,7 +32,10 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
   `src/shared/lib/database` so the shared infrastructure layer does not import
   from `entities`.
 - Server Actions находятся в `src/shared/lib/actions.ts`.
-- Unsplash data is mapped to entity UI models in `src/entities/*/model`.
+- Unsplash data is mapped to entity UI models in `src/entities/*/model`;
+  detailed photo routes use an `ImageDetails` model so page UI does not depend
+  on raw Unsplash response field names such as `alt_description` or
+  `download_location`.
 - Infinite pagination state can be restored from `sessionStorage` through
   `src/shared/hooks/useInfinitePagination` when a feature passes a stable
   `cacheKey`; cache helpers live in `src/shared/lib/infinitePaginationCache`.

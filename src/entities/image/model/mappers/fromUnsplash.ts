@@ -1,5 +1,5 @@
-import { Image } from '@/entities/image/model/type'
-import { Result } from '@/shared/api/unsplash/model'
+import type { Image, ImageDetails } from '@/entities/image/model/type'
+import type { Result, UnsplashPhoto } from '@/shared/api/unsplash/model'
 
 export function fromUnsplash(data: Result): Image {
   return {
@@ -24,6 +24,19 @@ export function fromUnsplash(data: Result): Image {
       self: data.links.self,
       html: data.links.html,
       download: data.links.download,
+    },
+  }
+}
+
+export function fromUnsplashPhoto(data: UnsplashPhoto): ImageDetails {
+  const image = fromUnsplash(data)
+
+  return {
+    ...image,
+    altDescription: data.alt_description,
+    links: {
+      ...image.links,
+      downloadLocation: data.links.download_location,
     },
   }
 }

@@ -23,4 +23,11 @@ export type Image = {
     download: string
   }
 }
+
+export type ImageDetails = Image & {
+  altDescription: string | null
+  links: Image['links'] & {
+    downloadLocation: string
+  }
+}
 // TODO: удалить не используемые поля!

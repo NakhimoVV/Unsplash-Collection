@@ -82,11 +82,18 @@ function loadComponent(relativePath, mocks) {
 
 const commonMocks = {
   'react/jsx-runtime': require('react/jsx-runtime'),
-  'next/image': ({ blurDataURL, fill, placeholder, priority, ...props }) =>
-    React.createElement('img', {
-      ...props,
+  'next/image': ({ priority, ...props }) => {
+    const imageProps = { ...props }
+
+    delete imageProps.blurDataURL
+    delete imageProps.fill
+    delete imageProps.placeholder
+
+    return React.createElement('img', {
+      ...imageProps,
       'data-priority': priority ? 'true' : undefined,
-    }),
+    })
+  },
   'next/link': ({ children, href, ...props }) =>
     React.createElement('a', { ...props, href }, children),
 }
