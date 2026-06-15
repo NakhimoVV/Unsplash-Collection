@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react'
 
+import ScrollToTopButton from '@/features/scroll-to-top'
 import { Image } from '@/entities/image/model/type'
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll'
 import { useResponsiveColumns } from '@/shared/hooks/useResponsiveColumns'
@@ -78,6 +79,7 @@ const GridMasonry = <T extends Image>(props: GridMasonryProps<T>) => {
       </div>
       {isLoading && <div className={styles.loader}>Loading...</div>}
       <div ref={lastElementRef} className={styles.triggerBlock} />
+      <ScrollToTopButton />
     </>
   )
 }

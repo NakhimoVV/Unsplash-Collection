@@ -1,0 +1,56 @@
+.button {
+  --button-size: 48px;
+  --viewport-offset: 24px;
+  --icon-color: #8a3282;
+
+  @include flex-center;
+
+  position: fixed;
+  right: var(--viewport-offset);
+  bottom: var(--viewport-offset);
+  z-index: 10;
+  width: var(--button-size);
+  height: var(--button-size);
+  color: var(--icon-color);
+  background-color: rgb(255 255 255 / 86%);
+  border: 1px solid rgb(18 24 38 / 16%);
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 14px 34px 0 rgb(18 24 38 / 34%);
+  transition-duration: var(--transition-duration);
+  transition-property: opacity, translate, scale, background-color, box-shadow;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  pointer-events: none;
+  translate: 0 12px;
+
+  @include hover {
+    background-color: rgb(255 255 255 / 94%);
+    box-shadow: 0 18px 42px 0 rgb(18 24 38 / 42%);
+    scale: 1.04;
+  }
+
+  &:active {
+    scale: 0.96;
+  }
+
+  &:focus-visible {
+    @include focus-visible;
+  }
+
+  @include mobile {
+    --button-size: 44px;
+    --viewport-offset: 16px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0s;
+    translate: 0;
+  }
+}
+
+.buttonVisible {
+  opacity: 1;
+  pointer-events: auto;
+  translate: 0;
+}
