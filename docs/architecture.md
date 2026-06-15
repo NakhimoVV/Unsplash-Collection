@@ -14,7 +14,8 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
 - Компоненты features лежат напрямую в своей feature-папке; вложенные
   `ui`-папки в `src/features` не используются.
 - Имена feature-папок оформляются в kebab-case, например
-  `collection-images`.
+  `collection-images`; регистр пути в Git должен оставаться lowercase, чтобы
+  сборка на Linux/Vercel совпадала с локальными импортами.
 - `src/entities` - доменные модели и UI сущностей: image, collection.
 - `src/shared` - общие API-клиенты, server actions, hooks, UI, стили,
   константы и утилиты.
