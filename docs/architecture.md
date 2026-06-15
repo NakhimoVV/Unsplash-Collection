@@ -45,6 +45,10 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
 - Image lists mark only above-the-fold candidates as eager: the first item in
   each masonry column and the first collection preview. Other list images stay
   lazy-loaded.
+- Blurhash placeholders for image lists use a hybrid loading state: image
+  containers render a neutral CSS fallback immediately, then `src/shared/hooks`
+  decodes `blur_hash` through canvas on the client and passes the resulting
+  data URL to the container background and `next/image`.
 
 ## Dependency Maintenance
 

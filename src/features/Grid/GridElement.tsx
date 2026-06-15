@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { Image as ImageType } from '@/entities/image/model/type'
 import { useBlurDataURL } from '@/shared/hooks/useBlurDataURL'
 
+import type { CSSProperties } from 'react'
+
 import styles from './GridElement.module.scss'
 
 type GridElementProps = {
@@ -11,9 +13,15 @@ type GridElementProps = {
   isAboveFold?: boolean
 }
 
+type BlurPlaceholderStyle = CSSProperties &
+  Partial<Record<'--blur-data-url', string>>
+
 const GridElement = (props: GridElementProps) => {
   const { image, isAboveFold = false } = props
   const blurDataURL = useBlurDataURL(image.blur_hash)
+  const blurPlaceholderStyle: BlurPlaceholderStyle | undefined = blurDataURL
+    ? { '--blur-data-url': `url("${blurDataURL}")` }
+    : undefined
 
   // Calc the correct dimensions to maintain proportions
   const aspectRatio = image.width / image.height
@@ -21,7 +29,11 @@ const GridElement = (props: GridElementProps) => {
   const calculatedHeight = Math.round(baseWidth / aspectRatio)
 
   return (
-    <Link className={styles.imageLink} href={`/photos/${image.id}`}>
+    <Link
+      className={styles.imageLink}
+      href={`/photos/${image.id}`}
+      style={blurPlaceholderStyle}
+    >
       <Image
         className={styles.image}
         src={image.urls.small}

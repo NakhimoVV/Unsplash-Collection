@@ -22,7 +22,6 @@ const SearchList = (props: SearchListProps) => {
   const { query, page, initialData, totalPages } = props
   const titleId = 'search-title'
   const cacheKey = `search:${query}`
-  // TODO: чекнуть возможные проблемы с blurhash!
   const fetchSearchPage = useCallback(
     async (page: number) => {
       const data = await loadPhotos(query, page)

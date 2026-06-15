@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react'
 import { blurHashToDataURL } from '@/shared/utils/blurhash'
 
 /**
- * Хук для декодирования blur_hash в base64 DataURL
- * Работает только на клиенте
+ * Хук для декодирования blur_hash в DataURL
  */
 export function useBlurDataURL(
   blurHash: string | null | undefined,
@@ -12,18 +11,13 @@ export function useBlurDataURL(
   const [blurDataURL, setBlurDataURL] = useState<string | undefined>(undefined)
 
   useEffect(() => {
+    setBlurDataURL(undefined)
+
     if (!blurHash) {
-      setBlurDataURL(undefined)
       return
     }
 
-    blurHashToDataURL(blurHash)
-      .then((dataURL) => {
-        setBlurDataURL(dataURL)
-      })
-      .catch(() => {
-        setBlurDataURL(undefined)
-      })
+    setBlurDataURL(blurHashToDataURL(blurHash))
   }, [blurHash])
 
   return blurDataURL

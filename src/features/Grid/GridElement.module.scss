@@ -1,5 +1,11 @@
 .imageLink {
+  position: relative;
   display: block;
+  background-color: var(--color-ligth);
+  background-image: var(--blur-data-url);
+  background-position: center;
+  background-size: cover;
+  border-radius: var(--border-radius-xs);
   transition-duration: 0.3s;
 
   @include hover {

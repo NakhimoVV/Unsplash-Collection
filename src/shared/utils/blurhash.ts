@@ -1,48 +1,52 @@
-/**
- * Утилита для работы с blur_hash
- * pnpm i blurhash
- */
+import { decode } from 'blurhash'
+
+const DEFAULT_BLUR_WIDTH = 32
+const DEFAULT_BLUR_HEIGHT = 32
+const MIN_BLUR_DIMENSION = 1
 
 /**
- * Конвертирует blur_hash в base64 изображение для использования в Next.js Image
+ * Конвертирует blur_hash в canvas DataURL для использования в Next.js Image.
  * @param blurHash - blur_hash строка из Unsplash API
- * @param width - ширина изображения (по умолчанию 32px для производительности)
- * @param height - высота изображения (по умолчанию 32px)
- * @returns base64 строка для использования в blurDataURL
+ * @param width - ширина placeholder в пикселях
+ * @param height - высота placeholder в пикселях
+ * @returns data URL для использования в blurDataURL
  */
-export async function blurHashToDataURL(
+export function blurHashToDataURL(
   blurHash: string | null | undefined,
-  width: number = 32,
-  height: number = 32,
-): Promise<string | undefined> {
-  if (!blurHash) {
+  width: number = DEFAULT_BLUR_WIDTH,
+  height: number = DEFAULT_BLUR_HEIGHT,
+): string | undefined {
+  if (!blurHash || !isValidDimension(width) || !isValidDimension(height)) {
     return undefined
   }
 
-  // Работаем только на клиенте!
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
     return undefined
   }
 
   try {
-    // Динамический импорт для работы только на клиенте
-    const { decode } = await import('blurhash')
     const pixels = decode(blurHash, width, height)
     const canvas = document.createElement('canvas')
-    canvas.width = width
-    canvas.height = height
-    const ctx = canvas.getContext('2d')
-    if (!ctx) {
+    const context = canvas.getContext('2d')
+
+    if (!context) {
       return undefined
     }
 
-    const imageData = ctx.createImageData(width, height)
+    canvas.width = width
+    canvas.height = height
+
+    const imageData = context.createImageData(width, height)
     imageData.data.set(pixels)
-    ctx.putImageData(imageData, 0, 0)
+    context.putImageData(imageData, 0, 0)
 
     return canvas.toDataURL()
   } catch (error) {
     console.warn('Failed to decode blur_hash:', error)
     return undefined
   }
+}
+
+function isValidDimension(value: number): boolean {
+  return Number.isInteger(value) && value >= MIN_BLUR_DIMENSION
 }

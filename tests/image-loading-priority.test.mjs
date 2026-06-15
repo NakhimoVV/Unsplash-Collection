@@ -99,6 +99,33 @@ const commonMocks = {
 }
 
 describe('image loading priority', () => {
+  it('passes blur placeholder to masonry images when blur data is available', () => {
+    const blurDataURL = 'data:image/png;base64,blurhash'
+    const GridElement = loadComponent('src/features/grid/GridElement.tsx', {
+      ...commonMocks,
+      'next/image': ({ blurDataURL, placeholder, ...props }) =>
+        React.createElement('img', {
+          ...props,
+          'data-blur-data-url': blurDataURL,
+          'data-placeholder': placeholder,
+        }),
+      '@/entities/image/model/type': {},
+      '@/shared/hooks/useBlurDataURL': {
+        useBlurDataURL: () => blurDataURL,
+      },
+    })
+
+    const markup = renderToStaticMarkup(
+      React.createElement(GridElement, {
+        image: testImage,
+      }),
+    )
+
+    assert.match(markup, /\bdata-placeholder="blur"/)
+    assert.match(markup, /\bdata-blur-data-url="data:image\/png/)
+    assert.match(markup, /--blur-data-url:url\(&quot;data:image\/png/)
+  })
+
   it('renders the first masonry image eagerly when it is above the fold', () => {
     const GridElement = loadComponent('src/features/grid/GridElement.tsx', {
       ...commonMocks,
