@@ -17,13 +17,23 @@ export type ImageDetails = Omit<Image, 'urls' | 'user'> & {
   created_at: string
   altDescription: string | null
   user: Image['user'] & {
-    profile_image: { medium: string }
+    id: string
+    profile_image: {
+      small: string
+      medium: string
+      large: string
+    }
   }
   urls: Image['urls'] & {
+    raw: string
     full: string
     regular: string
+    thumb: string
   }
   links: {
+    self: string
+    html: string
+    download: string
     downloadLocation: string
   }
 }

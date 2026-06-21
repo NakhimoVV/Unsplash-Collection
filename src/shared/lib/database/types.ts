@@ -8,6 +8,23 @@ export type DatabaseCollection = Readonly<{
   is_system: boolean
 }>
 
+export type DatabaseCollectionWithPhotoMembership = DatabaseCollection &
+  Readonly<{
+    has_current_photo: boolean
+  }>
+
+export type CollectionImagePayload = Readonly<{
+  id: string
+  created_at: string
+  width: number
+  height: number
+  blur_hash: string | null
+  description: string | null
+  user: DatabaseCollectionImage['user']
+  urls: DatabaseCollectionImage['urls']
+  links: DatabaseCollectionImage['links']
+}>
+
 export type DatabaseCollectionImage = Readonly<{
   id: string
   collection_id: string

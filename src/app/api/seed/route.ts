@@ -52,7 +52,7 @@ async function seedCollections() {
 async function seedCollectionsImages() {
   await sql`
     CREATE TABLE IF NOT EXISTS collection_images (
-      id TEXT PRIMARY KEY,
+      id TEXT,
       collection_id UUID REFERENCES collections(id) ON DELETE CASCADE,
       created_at TEXT,
       width INT,
@@ -63,9 +63,11 @@ async function seedCollectionsImages() {
       "urls" JSONB NOT NULL,
       "links" JSONB NOT NULL,
       added_at TIMESTAMP DEFAULT NOW(),
-      UNIQUE(collection_id, id)
+      PRIMARY KEY (collection_id, id)
     );
   `
+
+  await migrateCollectionImagesPrimaryKey()
 
   const insertedImagesToCollections = await Promise.all(
     collections.map(async (collection) => {
@@ -102,6 +104,52 @@ async function seedCollectionsImages() {
   )
 
   return insertedImagesToCollections
+}
+
+async function migrateCollectionImagesPrimaryKey() {
+  await sql.begin(async (transaction) => {
+    const [{ constraint_name: primaryKeyName } = { constraint_name: null }] =
+      await transaction<{ constraint_name: string | null }[]>`
+        SELECT tc.constraint_name
+        FROM information_schema.table_constraints tc
+        WHERE tc.table_name = 'collection_images'
+          AND tc.constraint_type = 'PRIMARY KEY'
+        LIMIT 1
+      `
+
+    const [{ primary_key_columns: primaryKeyColumns }] = await transaction<
+      { primary_key_columns: string[] | null }[]
+    >`
+      SELECT ARRAY_AGG(kcu.column_name ORDER BY kcu.ordinal_position) AS primary_key_columns
+      FROM information_schema.table_constraints tc
+      JOIN information_schema.key_column_usage kcu
+        ON tc.constraint_name = kcu.constraint_name
+        AND tc.table_schema = kcu.table_schema
+      WHERE tc.table_name = 'collection_images'
+        AND tc.constraint_type = 'PRIMARY KEY'
+    `
+
+    const hasCompositePrimaryKey =
+      primaryKeyColumns?.length === 2 &&
+      primaryKeyColumns[0] === 'collection_id' &&
+      primaryKeyColumns[1] === 'id'
+
+    if (hasCompositePrimaryKey) {
+      return
+    }
+
+    if (primaryKeyName) {
+      await transaction`
+        ALTER TABLE collection_images
+        DROP CONSTRAINT ${transaction(primaryKeyName)}
+      `
+    }
+
+    await transaction`
+      ALTER TABLE collection_images
+      ADD PRIMARY KEY (collection_id, id)
+    `
+  })
 }
 
 export async function GET() {

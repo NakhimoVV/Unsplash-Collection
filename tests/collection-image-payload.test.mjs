@@ -9,12 +9,9 @@ import ts from 'typescript'
 
 const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)))
 const require = createRequire(import.meta.url)
-const mapperPath = join(
-  projectRoot,
-  'src/entities/image/model/mappers/fromUnsplash.ts',
-)
+const mapperPath = join(projectRoot, 'src/shared/lib/database/mappers.ts')
 
-function loadMapper() {
+function loadDatabaseMappers() {
   const source = readFileSync(mapperPath, 'utf8')
   const compiled = ts.transpileModule(source, {
     compilerOptions: {
@@ -44,10 +41,9 @@ function loadMapper() {
 
 const unsplashPhoto = {
   id: 'photo-id',
-  alt_description: 'Mountain lake at sunset',
   blur_hash: undefined,
   created_at: '2026-06-14T10:00:00Z',
-  description: null,
+  description: 'Mountain lake',
   height: 3000,
   links: {
     download: 'https://unsplash.com/photos/photo-id/download',
@@ -74,41 +70,43 @@ const unsplashPhoto = {
   width: 4000,
 }
 
-describe('image mappers', () => {
-  it('maps an Unsplash photo response to a detail image model', () => {
-    const { fromUnsplashPhoto } = loadMapper()
-    const photo = JSON.parse(JSON.stringify(fromUnsplashPhoto(unsplashPhoto)))
+describe('collection image database payload', () => {
+  it('maps an Unsplash photo to the fields stored in collection_images', () => {
+    const { mapUnsplashPhotoToCollectionImagePayload } = loadDatabaseMappers()
 
-    assert.deepEqual(photo, {
-      id: 'photo-id',
-      altDescription: 'Mountain lake at sunset',
-      blur_hash: null,
-      created_at: '2026-06-14T10:00:00Z',
-      description: null,
-      height: 3000,
-      links: {
-        download: 'https://unsplash.com/photos/photo-id/download',
-        downloadLocation: 'https://api.unsplash.com/photos/photo-id/download',
-        html: 'https://unsplash.com/photos/photo-id',
-        self: 'https://api.unsplash.com/photos/photo-id',
-      },
-      urls: {
-        full: 'https://images.unsplash.com/photo.jpg?w=2400',
-        raw: 'https://images.unsplash.com/photo.jpg',
-        regular: 'https://images.unsplash.com/photo.jpg?w=1080',
-        small: 'https://images.unsplash.com/photo.jpg?w=400',
-        thumb: 'https://images.unsplash.com/photo.jpg?w=200',
-      },
-      user: {
-        id: 'user-id',
-        name: 'Photo Author',
-        profile_image: {
-          large: 'https://images.unsplash.com/profile-large.jpg',
-          medium: 'https://images.unsplash.com/profile-medium.jpg',
-          small: 'https://images.unsplash.com/profile-small.jpg',
+    assert.deepEqual(
+      JSON.parse(
+        JSON.stringify(mapUnsplashPhotoToCollectionImagePayload(unsplashPhoto)),
+      ),
+      {
+        id: 'photo-id',
+        blur_hash: null,
+        created_at: '2026-06-14T10:00:00Z',
+        description: 'Mountain lake',
+        height: 3000,
+        links: {
+          download: 'https://unsplash.com/photos/photo-id/download',
+          html: 'https://unsplash.com/photos/photo-id',
+          self: 'https://api.unsplash.com/photos/photo-id',
         },
+        urls: {
+          full: 'https://images.unsplash.com/photo.jpg?w=2400',
+          raw: 'https://images.unsplash.com/photo.jpg',
+          regular: 'https://images.unsplash.com/photo.jpg?w=1080',
+          small: 'https://images.unsplash.com/photo.jpg?w=400',
+          thumb: 'https://images.unsplash.com/photo.jpg?w=200',
+        },
+        user: {
+          id: 'user-id',
+          name: 'Photo Author',
+          profile_image: {
+            large: 'https://images.unsplash.com/profile-large.jpg',
+            medium: 'https://images.unsplash.com/profile-medium.jpg',
+            small: 'https://images.unsplash.com/profile-small.jpg',
+          },
+        },
+        width: 4000,
       },
-      width: 4000,
-    })
+    )
   })
 })
