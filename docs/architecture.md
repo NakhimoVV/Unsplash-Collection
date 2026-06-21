@@ -10,7 +10,7 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
 - `src/app` - маршруты, layout, pages и route handlers.
 - `src/widgets` - крупные композиционные блоки страниц.
 - `src/features` - пользовательские сценарии: поиск, masonry grid,
-  изображения коллекции.
+  изображения коллекции, добавление фото в коллекции.
 - Компоненты features лежат напрямую в своей feature-папке; вложенные
   `ui`-папки в `src/features` не используются.
 - Имена feature-папок оформляются в kebab-case, например
@@ -28,11 +28,20 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
   render link/button semantics and do not contain Unsplash-specific logic.
 - Browser-side forced image downloads live in `src/features/image-download`,
   so the user scenario stays outside reusable shared UI and entity models.
+- Photo collection membership UI lives in `src/features/photo-collections`.
+  It owns the client-side collection list state, Radix Dialog modal, local
+  search, add/remove controls, and calls server actions from `src/shared`.
 - PostgreSQL/Neon доступ изолирован в `src/shared/lib/database`.
 - DB row contracts and DB-to-client mappers live inside
   `src/shared/lib/database` so the shared infrastructure layer does not import
   from `entities`.
 - Server Actions находятся в `src/shared/lib/actions.ts`.
+- Collection membership writes are server-only: client components call server
+  actions, actions load full Unsplash photo data on the server, and
+  `src/shared/lib/database` persists or removes `collection_images` rows.
+- `collection_images` uses a composite primary key `(collection_id, id)`, so
+  one Unsplash photo can belong to multiple collections while staying unique
+  inside each collection.
 - Unsplash data is mapped to entity UI models in `src/entities/*/model`;
   detailed photo routes use an `ImageDetails` model so page UI does not depend
   on raw Unsplash response field names such as `alt_description` or
@@ -58,6 +67,8 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
 - Используется только `pnpm`; lockfile `pnpm-lock.yaml` должен обновляться
   вместе с `package.json`.
 - После обновления зависимостей запускать минимум `pnpm lint` и `pnpm build`.
+- `@radix-ui/react-dialog` is used as the accessible headless Dialog primitive
+  for the photo collections modal; styling remains SCSS Modules.
 
 ## Quality Checks
 
