@@ -16,6 +16,9 @@ I deliberately excluded AI settings and local rule files (agents.md, docs/archit
 - Имена feature-папок оформляются в kebab-case, например
   `collection-images`; регистр пути в Git должен оставаться lowercase, чтобы
   сборка на Linux/Vercel совпадала с локальными импортами.
+- Case-only переименования feature-папок фиксируются через `git mv`, иначе
+  Windows может показывать рабочий lowercase-путь, пока Git хранит старый
+  регистр для Vercel/Linux.
 - `src/entities` - доменные модели и UI сущностей: image, collection.
 - `src/shared` - общие API-клиенты, server actions, hooks, UI, стили,
   константы и утилиты.
