@@ -5,6 +5,9 @@
 
 I deliberately excluded AI settings and local rule files (agents.md, docs/architecture-rules.md, and docs/styling-rules.md) from Git tracking.
 
+README uses the same portfolio structure as sibling projects: centered title,
+key features, table of contents, overview thumbnail, stack, and author links.
+
 ## Layers
 
 - `src/app` - маршруты, layout, pages и route handlers.
