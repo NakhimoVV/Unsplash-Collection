@@ -1,4 +1,4 @@
-<h1 align="center">UnsplashBox</h1>
+<h1 align="center">Unsplash Collection</h1>
 
 🚀 Key Features
 
@@ -42,5 +42,5 @@
 
 ## Author
 
-- Website [UnsplashBox](https://unsplash-collection-eta.vercel.app)
+- Website [Unsplash Collection](https://unsplash-collection-eta.vercel.app)
 - GitHub [NakhimoVV](https://github.com/NakhimoVV)
