@@ -102,7 +102,9 @@ const PhotoCollectionsSection = (props: PhotoCollectionsSectionProps) => {
       ? 'remove'
       : 'add'
     const isCurrentActionPending = pendingCollectionId === collection.id
-    const shouldRenderAction = collection.hasCurrentPhoto || isDialogItem
+    const shouldRenderAction =
+      (!collection.hasCurrentPhoto || !collection.isCurrentPhotoSystem) &&
+      (collection.hasCurrentPhoto || isDialogItem)
 
     return (
       <li

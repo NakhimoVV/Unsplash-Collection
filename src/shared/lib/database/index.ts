@@ -78,7 +78,16 @@ export async function fetchCollectionsWithPhotoMembership(photoId: string) {
         FROM collection_images current_photo
         WHERE current_photo.collection_id = c.id
           AND current_photo.id = ${photoId}
-      ) AS has_current_photo
+      ) AS has_current_photo,
+      COALESCE(
+        (
+          SELECT current_photo.is_system
+          FROM collection_images current_photo
+          WHERE current_photo.collection_id = c.id
+            AND current_photo.id = ${photoId}
+        ),
+        false
+      ) AS is_current_photo_system
     FROM collections c
     LEFT JOIN collection_images ci ON ci.collection_id = c.id
     GROUP BY c.id
@@ -134,6 +143,7 @@ export async function removeImageFromCollection(
     DELETE FROM collection_images
     WHERE collection_id = ${collectionId}
       AND id = ${photoId}
+      AND is_system = false
   `
 }
 

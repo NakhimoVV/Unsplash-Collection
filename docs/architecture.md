@@ -60,6 +60,10 @@ key features, table of contents, overview thumbnail, stack, and author links.
 - `collection_images` uses a composite primary key `(collection_id, id)`, so
   one Unsplash photo can belong to multiple collections while staying unique
   inside each collection.
+- Existing seed photos in default collections have `is_system = true`. They
+  are protected from removal by the `prevent_system_collection_image_delete`
+  trigger and do not expose a remove control; photos added later remain
+  removable.
 - Unsplash data is mapped to entity UI models in `src/entities/*/model`;
   detailed photo routes use an `ImageDetails` model so page UI does not depend
   on raw Unsplash response field names such as `alt_description` or

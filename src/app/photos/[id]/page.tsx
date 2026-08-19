@@ -19,9 +19,14 @@ export default async function Photo(props: PhotoPageProps) {
   const photo = fromUnsplashPhoto(await unsplashApi.getPhotoById(id))
   const collections = await fetchCollectionsWithPhotoMembership(id)
   const photoCollections = collections.map(
-    ({ has_current_photo: hasCurrentPhoto, ...collection }) => ({
+    ({
+      has_current_photo: hasCurrentPhoto,
+      is_current_photo_system: isCurrentPhotoSystem,
+      ...collection
+    }) => ({
       ...collection,
       hasCurrentPhoto,
+      isCurrentPhotoSystem,
     }),
   )
 

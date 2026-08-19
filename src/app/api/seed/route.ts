@@ -4,7 +4,7 @@ import { unsplashApi } from '@/shared/api/unsplash'
 import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
 import { collections } from '@/shared/lib/default-collections'
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
+const sql = postgres(process.env.DATABASE_URL!, { ssl: 'require' })
 
 async function seedCollections() {
   await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
@@ -29,6 +29,10 @@ async function seedCollections() {
         RETURN OLD;
     END;
     $$ LANGUAGE plpgsql;
+  `
+  await sql`
+    DROP TRIGGER IF EXISTS collections_system_remove
+    ON collections;
   `
   await sql`
     CREATE TRIGGER collections_system_remove
@@ -63,11 +67,14 @@ async function seedCollectionsImages() {
       "urls" JSONB NOT NULL,
       "links" JSONB NOT NULL,
       added_at TIMESTAMP DEFAULT NOW(),
+      is_system BOOLEAN NOT NULL DEFAULT false,
       PRIMARY KEY (collection_id, id)
     );
   `
 
   await migrateCollectionImagesPrimaryKey()
+  await migrateCollectionImagesSystemProtection()
+  await createCollectionImagesSystemDeleteTrigger()
 
   const insertedImagesToCollections = await Promise.all(
     collections.map(async (collection) => {
@@ -81,7 +88,7 @@ async function seedCollectionsImages() {
           return sql`
               INSERT INTO collection_images (
                 collection_id, id, created_at, width, height, 
-                blur_hash, description, "user", "urls", "links"
+                blur_hash, description, "user", "urls", "links", is_system
               )
               VALUES (
                 ${collection.id},
@@ -93,7 +100,8 @@ async function seedCollectionsImages() {
                 ${image.description ?? null},
                 ${sql.json(image.user)},
                 ${sql.json(image.urls)},
-                ${sql.json(image.links)}
+                ${sql.json(image.links)},
+                true
               )
               ON CONFLICT (collection_id, id) DO NOTHING
             `
@@ -104,6 +112,71 @@ async function seedCollectionsImages() {
   )
 
   return insertedImagesToCollections
+}
+
+async function migrateCollectionImagesSystemProtection() {
+  const [{ exists: hasSystemFlag }] = await sql<{ exists: boolean }[]>`
+    SELECT EXISTS (
+      SELECT 1
+      FROM information_schema.columns
+      WHERE table_name = 'collection_images'
+        AND column_name = 'is_system'
+    )
+  `
+
+  if (hasSystemFlag) {
+    return
+  }
+
+  await sql.begin(async (transaction) => {
+    await transaction`
+      ALTER TABLE collection_images
+      ADD COLUMN is_system BOOLEAN
+    `
+
+    await transaction`
+      UPDATE collection_images ci
+      SET is_system = true
+      FROM collections c
+      WHERE ci.collection_id = c.id
+        AND c.is_system = true
+    `
+
+    await transaction`
+      UPDATE collection_images
+      SET is_system = false
+      WHERE is_system IS NULL
+    `
+
+    await transaction`
+      ALTER TABLE collection_images
+      ALTER COLUMN is_system SET NOT NULL,
+      ALTER COLUMN is_system SET DEFAULT false
+    `
+  })
+}
+
+async function createCollectionImagesSystemDeleteTrigger() {
+  await sql`
+    CREATE OR REPLACE FUNCTION prevent_system_collection_image_delete()
+    RETURNS trigger AS $$
+    BEGIN
+        IF OLD.is_system THEN
+            RAISE EXCEPTION 'Cannot delete default collection image!';
+        END IF;
+        RETURN OLD;
+    END;
+    $$ LANGUAGE plpgsql;
+  `
+  await sql`
+    DROP TRIGGER IF EXISTS collection_images_system_remove
+    ON collection_images;
+  `
+  await sql`
+    CREATE TRIGGER collection_images_system_remove
+    BEFORE DELETE ON collection_images
+    FOR EACH ROW EXECUTE FUNCTION prevent_system_collection_image_delete();
+  `
 }
 
 async function migrateCollectionImagesPrimaryKey() {

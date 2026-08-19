@@ -11,6 +11,7 @@ export type DatabaseCollection = Readonly<{
 export type DatabaseCollectionWithPhotoMembership = DatabaseCollection &
   Readonly<{
     has_current_photo: boolean
+    is_current_photo_system: boolean
   }>
 
 export type CollectionImagePayload = Readonly<{
@@ -55,6 +56,7 @@ export type DatabaseCollectionImage = Readonly<{
     download: string
   }
   added_at: string
+  is_system: boolean
 }>
 
 export type DatabaseImage = Readonly<{
