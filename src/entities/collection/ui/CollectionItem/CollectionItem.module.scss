@@ -8,7 +8,6 @@
 .link {
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
 }
 
 .header {
@@ -63,10 +62,20 @@
 }
 
 .footer {
-  display: grid;
+  display: flex;
   align-self: start;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 16px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.details {
+  display: grid;
   justify-items: start;
   row-gap: 4px;
+  min-width: 0;
 }
 
 .title {

@@ -7,6 +7,7 @@ import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
 import {
   addImageToCollection,
   createCollection as createCollectionRecord,
+  deleteCollection as deleteCollectionRecord,
   fetchImagesFromCollectionById,
   removeImageFromCollection,
 } from '@/shared/lib/database'
@@ -46,6 +47,15 @@ export async function createCollection(name: string) {
   }
 
   await createCollectionRecord(normalizedName)
+  revalidatePath('/collections')
+}
+
+export async function deleteCollection(id: string) {
+  if (!id.trim()) {
+    throw new Error('Collection id is required')
+  }
+
+  await deleteCollectionRecord(id)
   revalidatePath('/collections')
 }
 

@@ -41,7 +41,13 @@ key features, table of contents, overview thumbnail, stack, and author links.
   create-collection card and modal form; its server action validates and
   persists a non-empty collection name through `src/shared/lib/database` and
   revalidates the collection list.
+- Collection deletion UI lives in `src/features/remove-collection`. It owns
+  the confirmation modal and invokes a server action that deletes only
+  non-system collections, then revalidates the collection list.
 - PostgreSQL/Neon доступ изолирован в `src/shared/lib/database`.
+- Default `Ocean` and `Autumn Vibe` collections have `is_system = true` and
+  are protected from deletion by both the UI and the PostgreSQL
+  `prevent_system_delete` trigger.
 - DB row contracts and DB-to-client mappers live inside
   `src/shared/lib/database` so the shared infrastructure layer does not import
   from `entities`.

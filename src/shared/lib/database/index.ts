@@ -51,6 +51,14 @@ export async function createCollection(name: string) {
   `
 }
 
+export async function deleteCollection(id: string) {
+  await sql`
+    DELETE FROM collections
+    WHERE id = ${id}
+      AND is_system = false
+  `
+}
+
 export async function fetchCollectionsWithPhotoMembership(photoId: string) {
   const data = await sql<DatabaseCollectionWithPhotoMembership[]>`
     SELECT

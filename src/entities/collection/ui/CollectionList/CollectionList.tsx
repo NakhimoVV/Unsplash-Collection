@@ -6,17 +6,23 @@ import type { ReactNode } from 'react'
 import styles from './CollectionList.module.scss'
 
 type CollectionListProps = {
-  items: Collection[]
   children?: ReactNode
+  items: Collection[]
+  renderItemAction?: (item: Collection) => ReactNode
 }
 
 const CollectionList = (props: CollectionListProps) => {
-  const { items, children } = props
+  const { items, children, renderItemAction } = props
 
   return (
     <ul className={styles.collectionList}>
       {items.map((item, index) => (
-        <CollectionItem isAboveFold={index === 0} key={item.id} item={item} />
+        <CollectionItem
+          action={renderItemAction?.(item)}
+          isAboveFold={index === 0}
+          key={item.id}
+          item={item}
+        />
       ))}
       {children}
     </ul>

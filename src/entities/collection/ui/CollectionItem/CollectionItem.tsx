@@ -2,16 +2,18 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import type { Collection } from '@/entities/collection/model/types'
+import type { ReactNode } from 'react'
 
 import styles from './CollectionItem.module.scss'
 
 type CollectionItemProps = {
+  action?: ReactNode
   item: Collection
   isAboveFold?: boolean
 }
 
 const CollectionItem = (props: CollectionItemProps) => {
-  const { item, isAboveFold = false } = props
+  const { action, item, isAboveFold = false } = props
 
   return (
     <li className={styles.collection}>
@@ -33,11 +35,14 @@ const CollectionItem = (props: CollectionItemProps) => {
             </div>
           ))}
         </header>
-        <footer className={styles.footer}>
+      </Link>
+      <footer className={styles.footer}>
+        <Link className={styles.details} href={`/collections/${item.id}`}>
           <h4 className={styles.title}>{item.name}</h4>
           <p className={styles.subtitle}>{item.count_images} photos</p>
-        </footer>
-      </Link>
+        </Link>
+        {action}
+      </footer>
     </li>
   )
 }
