@@ -66,6 +66,7 @@ export async function addPhotoToCollection(
   const photo = await unsplashApi.getPhotoById(photoId)
 
   await addImageToCollection(collectionId, photo)
+  revalidatePath('/collections')
 }
 
 export async function removePhotoFromCollection(
@@ -73,4 +74,5 @@ export async function removePhotoFromCollection(
   photoId: string,
 ) {
   await removeImageFromCollection(collectionId, photoId)
+  revalidatePath('/collections')
 }

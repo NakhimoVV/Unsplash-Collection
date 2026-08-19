@@ -6,6 +6,8 @@ import PageHeader from '@/shared/ui/PageHeader'
 
 import styles from './page.module.scss'
 
+export const dynamic = 'force-dynamic'
+
 const title = 'Collections'
 
 export default async function Page() {
