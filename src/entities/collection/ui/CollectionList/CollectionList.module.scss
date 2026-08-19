@@ -2,4 +2,16 @@
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
+
+  @include tablet {
+    justify-content: center;
+    gap: 24px;
+    width: min(100%, 746px);
+    margin-inline: auto;
+  }
+
+  @include mobile {
+    gap: 20px;
+    width: min(100%, 357px);
+  }
 }

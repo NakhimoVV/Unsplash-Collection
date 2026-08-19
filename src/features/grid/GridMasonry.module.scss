@@ -9,10 +9,12 @@
 
   @include tablet {
     --columns: 3;
+    --gap: 16px;
   }
 
   @include mobile {
     --columns: 2;
+    --gap: 12px;
   }
 
   @include mobile-s {

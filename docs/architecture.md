@@ -95,3 +95,10 @@ key features, table of contents, overview thumbnail, stack, and author links.
   sorting.
 - `pnpm lint:types` runs TypeScript type checking without emitting files.
 - `pnpm lint:styles` checks SCSS/CSS with Stylelint.
+
+## Responsive Layout
+
+- Adaptive styles use the shared breakpoints from `src/shared/styles/helpers/media.scss`.
+- Tablet layouts preserve the desktop navigation and reduce grid density; mobile
+  layouts add side gutters, collapse the photo-detail view into one column, and
+  keep collection cards at the available viewport width.

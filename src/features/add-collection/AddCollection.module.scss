@@ -55,6 +55,11 @@
   display: flex;
   justify-content: center;
   column-gap: 16px;
+
+  @include mobile-s {
+    flex-direction: column;
+    row-gap: 12px;
+  }
 }
 
 .saveButton,

@@ -11,6 +11,10 @@
   border-radius: var(--border-radius-xs);
   user-select: none;
 
+  @include mobile-s {
+    padding-inline: 12px;
+  }
+
   @include hover {
     color: var(--color-black);
   }

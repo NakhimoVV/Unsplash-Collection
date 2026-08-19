@@ -2,6 +2,12 @@
   height: 100%;
   padding-top: 66px;
   padding-bottom: 72px;
+
+  @include tablet {
+    min-height: 574px;
+    padding-block: 0;
+    overflow: hidden;
+  }
 }
 
 .background {
@@ -9,15 +15,36 @@
   grid-template-columns: repeat(3, 1fr);
   column-gap: 36px;
   height: 100%;
+
+  @include tablet {
+    position: relative;
+    display: block;
+    min-height: inherit;
+  }
 }
 
 .decoration {
+  @include tablet {
+    position: absolute;
+    top: 132px;
+    width: 358px;
+    height: 516px;
+  }
+
   &.left {
     background: url('/hero-left.png') center / contain no-repeat;
+
+    @include tablet {
+      left: calc(50% - 658px);
+    }
   }
 
   &.right {
     background: url('/hero-right.png') center / contain no-repeat;
+
+    @include tablet {
+      right: calc(50% - 658px);
+    }
   }
 }
 
@@ -27,6 +54,19 @@
   row-gap: 24px;
   text-align: center;
   margin-top: 20%;
+
+  @include tablet {
+    position: relative;
+    z-index: 1;
+    width: min(528px, calc(100% - 64px));
+    margin: 0 auto;
+    padding-top: 174px;
+  }
+
+  @include mobile-s {
+    width: calc(100% - 32px);
+    padding-top: 144px;
+  }
 }
 
 .header {

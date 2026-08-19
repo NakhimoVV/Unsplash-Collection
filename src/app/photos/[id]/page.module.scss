@@ -5,12 +5,34 @@
   height: 90vh;
   padding-block: 52px;
   padding-inline: 72px;
+
+  @include tablet {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 52px;
+    width: min(552px, calc(100% - 64px));
+    height: auto;
+    margin-inline: auto;
+    padding-block: 52px;
+    padding-inline: 0;
+  }
+
+  @include mobile {
+    padding-block: 52px;
+  }
 }
 
 .imageBox {
   position: relative;
   flex: 0 1 50%;
   height: 100%;
+
+  @include tablet {
+    flex-basis: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+  }
 }
 
 .image {
@@ -23,6 +45,12 @@
   display: grid;
   flex: 0 1 50%;
   row-gap: 36px;
+
+  @include tablet {
+    flex-basis: auto;
+    row-gap: 24px;
+    width: 100%;
+  }
 
   .photoInfo {
     display: flex;

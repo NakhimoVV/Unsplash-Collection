@@ -1,4 +1,10 @@
 .pageContainer {
   display: grid;
   row-gap: 56px;
+  padding-bottom: 56px;
+
+  @include mobile {
+    row-gap: 36px;
+    padding-bottom: 36px;
+  }
 }

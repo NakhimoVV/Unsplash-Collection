@@ -38,7 +38,7 @@ export default async function Photo(props: PhotoPageProps) {
               `Photo by ${photo.user.name}`
             }
             fill
-            sizes={'(max-width: 768px) 50vw, 100vw'}
+            sizes={'(max-width: 1023.98px) 552px, 50vw'}
             loading="eager"
             priority
           />

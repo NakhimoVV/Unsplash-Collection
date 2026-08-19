@@ -3,6 +3,14 @@
   max-width: var(--container-width);
   margin-inline: auto;
   padding-top: 36px;
+
+  @include tablet {
+    padding-inline: 32px;
+  }
+
+  @include mobile {
+    padding-inline: 16px;
+  }
 }
 
 .not-found {

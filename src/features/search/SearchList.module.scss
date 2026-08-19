@@ -1,10 +1,16 @@
 @use 'sass:math';
 
 .searchContainer {
+  width: min(528px, calc(100% - 64px));
   max-width: 528px;
   margin-inline: auto;
   margin-bottom: 48px;
   margin-top: math.div(-56px, 2);
+
+  @include mobile-s {
+    width: calc(100% - 32px);
+    margin-bottom: 32px;
+  }
 }
 
 .gradientLine {

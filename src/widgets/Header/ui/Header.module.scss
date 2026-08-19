@@ -11,4 +11,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 32px;
+
+  @include mobile-s {
+    padding-inline: 16px;
+  }
 }
