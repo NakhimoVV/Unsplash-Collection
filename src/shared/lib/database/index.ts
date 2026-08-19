@@ -99,10 +99,7 @@ export async function fetchCollectionById(id: string) {
   `
 
   if (!data[0]) {
-    return {
-      name: 'No data!',
-      count_images: 0,
-    }
+    return null
   }
 
   return {

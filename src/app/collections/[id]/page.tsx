@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation'
+
 import CollectionImages from '@/features/collection-images'
 import {
   fetchCollectionById,
@@ -11,8 +13,13 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params
   const id = params.id
 
-  const { images, totalCount } = await fetchImagesFromCollectionById(id, 1)
   const collection = await fetchCollectionById(id)
+
+  if (!collection) {
+    notFound()
+  }
+
+  const { images, totalCount } = await fetchImagesFromCollectionById(id, 1)
 
   return (
     <div className={styles.pageContainer}>

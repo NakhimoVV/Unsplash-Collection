@@ -39,7 +39,8 @@ key features, table of contents, overview thumbnail, stack, and author links.
   search, add/remove controls, and calls server actions from `src/shared`.
 - Collection creation UI lives in `src/features/add-collection`. It owns the
   create-collection card and modal form; its server action validates and
-  persists a non-empty collection name through `src/shared/lib/database`.
+  persists a non-empty collection name through `src/shared/lib/database` and
+  revalidates the collection list.
 - PostgreSQL/Neon доступ изолирован в `src/shared/lib/database`.
 - DB row contracts and DB-to-client mappers live inside
   `src/shared/lib/database` so the shared infrastructure layer does not import

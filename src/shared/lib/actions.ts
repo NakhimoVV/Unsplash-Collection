@@ -1,5 +1,7 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
+
 import { unsplashApi } from '@/shared/api/unsplash'
 import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
 import {
@@ -44,6 +46,7 @@ export async function createCollection(name: string) {
   }
 
   await createCollectionRecord(normalizedName)
+  revalidatePath('/collections')
 }
 
 export async function addPhotoToCollection(
