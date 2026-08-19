@@ -4,6 +4,7 @@ import { unsplashApi } from '@/shared/api/unsplash'
 import { UnsplashSearchResponse } from '@/shared/api/unsplash/model'
 import {
   addImageToCollection,
+  createCollection as createCollectionRecord,
   fetchImagesFromCollectionById,
   removeImageFromCollection,
 } from '@/shared/lib/database'
@@ -33,6 +34,16 @@ export async function loadCollectionPhotos(id: string, page: number) {
 
 export async function downloadPhoto(url: string) {
   return unsplashApi.getFilePhoto(url)
+}
+
+export async function createCollection(name: string) {
+  const normalizedName = name.trim()
+
+  if (!normalizedName) {
+    throw new Error('Collection name is required')
+  }
+
+  await createCollectionRecord(normalizedName)
 }
 
 export async function addPhotoToCollection(

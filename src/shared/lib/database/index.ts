@@ -44,6 +44,13 @@ export async function fetchCollections() {
   }))
 }
 
+export async function createCollection(name: string) {
+  await sql`
+    INSERT INTO collections (name, is_system)
+    VALUES (${name}, false)
+  `
+}
+
 export async function fetchCollectionsWithPhotoMembership(photoId: string) {
   const data = await sql<DatabaseCollectionWithPhotoMembership[]>`
     SELECT

@@ -19,3 +19,14 @@
     scale: 1.05;
   }
 }
+
+.large {
+  flex-direction: column;
+  row-gap: 16px;
+  width: 100%;
+  min-height: 252px;
+  padding: 24px;
+  font-size: 20px;
+  color: var(--color-grey);
+  border-radius: var(--border-radius-s);
+}

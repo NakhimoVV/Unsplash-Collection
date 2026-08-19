@@ -1,3 +1,4 @@
+import AddCollection from '@/features/add-collection'
 import CollectionList from '@/entities/collection/ui/CollectionList'
 import { fetchCollections } from '@/shared/lib/database'
 import PageHeader from '@/shared/ui/PageHeader'
@@ -23,7 +24,9 @@ export default async function Page() {
   return (
     <div className={styles.pageContainer}>
       <PageHeader title={title} subtitle={subtitle} />
-      <CollectionList items={collections} />
+      <CollectionList items={collections}>
+        <AddCollection />
+      </CollectionList>
     </div>
   )
 }
